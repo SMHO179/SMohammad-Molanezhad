@@ -1,69 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>terminal://SMHO179</title>
 
-    <title>terminal://smho179</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-
 <div class="bg"></div>
 
-<div class="terminal">
+<div class="terminal" id="terminal">
 
     <div class="line">
-        <span class="prompt">guest@portfolio:~$</span>
-        <span>whoami</span>
+        <span class="prompt">SMHO179@portfolio:~$</span>
+        <span class="command">whoami</span>
     </div>
 
-    <div class="output">
-        Backend Developer | Go · Python · Linux · DevOps
-    </div>
+    <div class="output">SMHO179 | Backend Developer | Go · Python · Linux · DevOps</div>
 
     <div class="line">
-        <span class="prompt">guest@portfolio:~$</span>
-        <span>cat skills.txt</span>
+        <span class="prompt">SMHO179@portfolio:~$</span>
+        <span class="command">help</span>
     </div>
 
-    <div class="output">
-        Go, Python, Linux, Docker, Git, Bash
-    </div>
-
-    <div class="line">
-        <span class="prompt">guest@portfolio:~$</span>
-        <span>ls projects/</span>
-    </div>
-
-    <div class="output">
-        project_status.txt
-    </div>
-
-    <div class="line">
-        <span class="prompt">guest@portfolio:~$</span>
-        <span>cat project_status.txt</span>
-    </div>
-
-    <div class="output">
-        WORK IN PROGRESS — building backend & DevOps projects...
-    </div>
-
-    <div class="line">
-        <span class="prompt">guest@portfolio:~$</span>
-        <span>contact --open</span>
-    </div>
-
-    <div class="output">
-        <a href="mailto:SMHO11@protonmail.com">email</a> |
-        <a href="https://github.com/SMHO179">github</a>
-    </div>
+    <div class="output">Available commands: whoami, skills, projects, contact, clear</div>
 
 </div>
 
+<script src="app.js"></script>
 </body>
-
 </html>
