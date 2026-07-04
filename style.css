@@ -1,225 +1,71 @@
 :root {
-    --bg: #0b0f17;
-    --surface: #111827;
-    --surface-2: #161f2e;
+    --bg: #002b36;
+    --text: #93a1a1;
+    --muted: #586e75;
 
-    --text: #e5e7eb;
-    --muted: #9ca3af;
-
-    --accent: #60a5fa;
-    --accent-2: #a78bfa;
-
-    --border: rgba(255,255,255,0.08);
-
-    --radius: 14px;
-    --shadow: 0 10px 30px rgba(0,0,0,0.35);
-
-    --transition: 180ms ease;
+    --green: #2aa198;
+    --blue: #268bd2;
 }
 
-/* RESET */
-*,
-*::before,
-*::after {
+* {
     box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
 }
 
 body {
     margin: 0;
-    font-family: Vazirmatn, system-ui, sans-serif;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 
     background: var(--bg);
     color: var(--text);
-
-    line-height: 1.75;
 }
 
-/* subtle ambient background */
+/* background glow */
 .bg {
     position: fixed;
     inset: 0;
     z-index: -1;
 
     background:
-        radial-gradient(circle at 15% 20%, rgba(96,165,250,0.10), transparent 45%),
-        radial-gradient(circle at 85% 70%, rgba(167,139,250,0.08), transparent 40%);
+        radial-gradient(circle at 20% 20%, rgba(38,139,210,0.12), transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(42,161,152,0.10), transparent 45%);
 }
 
-/* NAV */
-nav {
-    position: sticky;
-    top: 0;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 14px 6%;
-
-    background: rgba(11,15,23,0.7);
-    backdrop-filter: blur(12px);
-
-    border-bottom: 1px solid var(--border);
-
-    z-index: 50;
-}
-
-nav a {
-    margin: 0 10px;
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 14px;
-
-    transition: color var(--transition);
-}
-
-nav a:hover {
-    color: var(--text);
-}
-
-/* HERO */
-.hero {
-    text-align: center;
-    padding: 80px 20px;
-}
-
-h1 {
-    font-size: clamp(2.4rem, 5vw, 3.6rem);
-    margin: 0;
-
-    letter-spacing: -0.03em;
-}
-
-.hero p {
-    margin-top: 10px;
-    color: var(--muted);
-    font-size: 15px;
-}
-
-/* LAYOUT */
-.wrap {
-    max-width: 980px;
-    margin: 0 auto;
+/* terminal container */
+.terminal {
+    max-width: 800px;
+    margin: 60px auto;
     padding: 20px;
 }
 
-section {
-    margin: 60px 0;
-}
-
-/* SECTION TITLE */
-h2 {
-    font-size: 18px;
-    margin-bottom: 14px;
-
+/* command line */
+.line {
     display: flex;
-    align-items: center;
     gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
 }
 
-h2::before {
-    content: "";
-    width: 10px;
-    height: 10px;
-    border-radius: 3px;
-
-    background: var(--accent);
-    display: inline-block;
+.prompt {
+    color: var(--green);
 }
 
-/* GRID */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 14px;
-}
-
-/* CARD */
-.card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-
-    padding: 16px;
-
-    transition: transform var(--transition),
-                border-color var(--transition),
-                box-shadow var(--transition);
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(96,165,250,0.3);
-    box-shadow: var(--shadow);
-}
-
-/* TEXT */
-p {
-    color: var(--muted);
-    font-size: 14px;
-}
-
-/* CHIPS (skills) */
-.chips span {
-    display: inline-flex;
-    align-items: center;
-
-    padding: 6px 10px;
-    margin: 4px;
-
-    font-size: 13px;
-
-    border-radius: 999px;
-
-    background: var(--surface);
-    border: 1px solid var(--border);
-
-    color: var(--muted);
-
-    transition: all var(--transition);
-}
-
-.chips span:hover {
-    border-color: rgba(96,165,250,0.35);
+.line span:last-child {
     color: var(--text);
 }
 
-/* BUTTONS */
-.btn {
-    display: inline-flex;
-    align-items: center;
+/* output */
+.output {
+    margin: 6px 0 20px 20px;
+    color: var(--muted);
+    line-height: 1.6;
+}
 
-    padding: 9px 14px;
-    margin: 6px;
-
-    border-radius: 10px;
-
-    background: var(--accent);
-    color: #0b0f17;
-
+/* links like terminal clickable */
+a {
+    color: var(--blue);
     text-decoration: none;
-    font-size: 14px;
-
-    transition: transform var(--transition), background var(--transition);
 }
 
-.btn:hover {
-    transform: translateY(-2px);
-    background: #7bb3ff;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .hero {
-        padding: 60px 16px;
-    }
+a:hover {
+    text-decoration: underline;
 }
