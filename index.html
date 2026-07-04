@@ -7,32 +7,32 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght=400;700&family=Fira+Code:wght=400;500&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-<div class="bg"></div>
-
-<div class="terminal" id="terminal">
-
-    <div class="line">
-        <span class="prompt">SMHO179@portfolio:~$</span>
-        <span class="command">whoami</span>
+    <div class="bg-layer">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
     </div>
 
-    <div class="output">SMHO179 | Backend Developer | Go · Python · Linux · DevOps</div>
+    <div class="terminal" id="terminal">
+        <div class="line">
+            <span class="prompt">SMHO179@portfolio:~$</span>
+            <span class="command">whoami</span>
+        </div>
+        <div class="output">SMHO179 | Backend Developer | Go · Python · Linux · DevOps</div>
 
-    <div class="line">
-        <span class="prompt">SMHO179@portfolio:~$</span>
-        <span class="command">help</span>
+        <div class="line">
+            <span class="prompt">SMHO179@portfolio:~$</span>
+            <span class="command">help</span>
+        </div>
+        <div class="output">Available commands: <span class="cmd-highlight">whoami</span>, <span class="cmd-highlight">skills</span>, <span class="cmd-highlight">projects</span>, <span class="cmd-highlight">contact</span>, <span class="cmd-highlight">clear</span></div>
     </div>
 
-    <div class="output">Available commands: whoami, skills, projects, contact, clear</div>
-
-</div>
-
-<script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
