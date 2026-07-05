@@ -1,26 +1,34 @@
 document.addEventListener("DOMContentLoaded", () => {
     const terminal = document.getElementById("terminal");
+
     const commands = {
-        help: "whoami, skills, projects, contact, clear",
-        whoami: "SMHO179 | Backend Developer | Go · Python · Linux · DevOps",
+        help: () => {
+            print("Available commands:");
+            print("help, whoami, skills, projects, contact, clear");
+        },
 
-        skills: "Go, Python, Docker, Kubernetes, Linux",
+        whoami: () => print("SMHO179 | Backend Developer | Go · Python · Linux · DevOps"),
 
-        contact: `
-    Email: SMHO11@protonmail.com
-    GitHub: https://github.com/SMHO179
-    `,
+        skills: () => print("Go, Python, Docker, Kubernetes, Linux"),
 
-        projects: `
-    camera-lock
-    GoWeather
-    metadata-viewer
-    fastfetch-config
-    `,
+        contact: () => print(
+`Email: SMHO11@protonmail.com
+GitHub: https://github.com/SMHO179`
+        ),
 
-        clear: "__CLEAR__"
+        projects: () => print(
+`camera-lock
+GoWeather
+metadata-viewer
+fastfetch-config`
+        ),
+
+        clear: () => {
+            terminal.innerHTML = "";
+            boot();
+            return false;
+        }
     };
-    ;
 
     function print(text) {
         const div = document.createElement("div");
@@ -37,19 +45,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let i = 0;
 
-        function type() {
+        (function type() {
             if (i < text.length) {
                 div.textContent += text[i++];
                 setTimeout(type, speed);
             } else if (cb) cb();
-        }
-
-        type();
+        })();
     }
 
-    function runHelp() {
-        print("Available commands:");
-        print(commands.help);
+    function runCommand(cmd) {
+        const value = cmd.trim().toLowerCase();
+
+        print(`~/portfolio $ ${value}`);
+
+        if (commands[value]) {
+            const result = commands[value]();
+            if (result === false) return;
+        } else {
+            print(`command not found: ${value}`);
+        }
+
         createInput();
     }
 
@@ -57,40 +72,36 @@ document.addEventListener("DOMContentLoaded", () => {
         const line = document.createElement("div");
         line.className = "input-line";
 
-        line.innerHTML = `
-            <span class="prompt">~/portfolio $</span>
-            <input autocomplete="off" spellcheck="false" />
-        `;
+        const input = document.createElement("input");
+        input.autocomplete = "off";
+        input.spellcheck = false;
+
+        const prompt = document.createElement("span");
+        prompt.className = "prompt";
+        prompt.textContent = "~/portfolio $";
+
+        line.appendChild(prompt);
+        line.appendChild(input);
 
         terminal.appendChild(line);
 
-        const input = line.querySelector("input");
         input.focus();
 
         input.addEventListener("keydown", (e) => {
-            if (e.key !== "Enter") return;
+            if (e.key === "Enter") {
+                const value = input.value;
 
-            const value = input.value.trim().toLowerCase();
+                // freeze input
+                input.disabled = true;
 
-            line.innerHTML = `
-                <span class="prompt">~/portfolio $</span>
-                <span class="command">${value}</span>
-            `;
+                line.innerHTML = `
+                    <span class="prompt">~/portfolio $</span>
+                    <span class="command"></span>
+                `;
 
-            if (value === "help") {
-                runHelp();
-            }
-            else if (value === "clear") {
-                terminal.innerHTML = "";
-                boot();
-            }
-            else if (commands[value]) {
-                print(commands[value]);
-                createInput();
-            }
-            else {
-                print("command not found: " + value);
-                createInput();
+                line.querySelector(".command").textContent = value;
+
+                runCommand(value);
             }
         });
     }
@@ -99,8 +110,8 @@ document.addEventListener("DOMContentLoaded", () => {
         printType("booting SMHO179 terminal...", 15, () => {
             print("system ready.");
             print("type 'help' to begin.");
-
-            setTimeout(runHelp, 400);
+            setTimeout(() => commands.help(), 300);
+            createInput();
         });
     }
 

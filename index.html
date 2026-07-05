@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SMHO179 | Terminal</title>
+    <title>SMHO179 | Terminal Portfolio</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
@@ -11,7 +11,6 @@
 
 <body>
 
-    <!-- PROFILE -->
     <header class="profile">
         <img src="https://github.com/SMHO179.png" class="avatar" />
 
@@ -21,14 +20,15 @@
         </div>
     </header>
 
-    <!-- TERMINAL -->
     <main class="terminal" id="terminal">
-        <div class="session"></div>
 
-        <div class="input-line">
+        <div id="output" class="output"></div>
+
+        <form class="input-line" id="form">
             <span class="prompt">~/portfolio $</span>
-            <input id="cmd" autocomplete="off" spellcheck="false" />
-        </div>
+            <input id="cmd" autocomplete="off" spellcheck="false" aria-label="terminal input" />
+        </form>
+
     </main>
 
     <script src="app.js"></script>

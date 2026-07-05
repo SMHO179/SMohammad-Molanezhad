@@ -17,8 +17,7 @@ body {
     background: var(--bg);
     color: var(--text);
 
-    /* 👇 Comic Sans */
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-family: "Fira Code", monospace;
 
     display: flex;
     flex-direction: column;
@@ -27,36 +26,43 @@ body {
     padding-top: 60px;
 }
 
-/* 👤 PROFILE BIGGER */
+/* PROFILE */
 .profile {
-    width: 1000px;
+    width: min(1000px, 92vw);
     display: flex;
     align-items: center;
     gap: 16px;
-
     margin-bottom: 16px;
 }
 
 .avatar {
     width: 56px;
     height: 56px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    object-fit: cover;
+    box-shadow: 0 0 18px rgba(122, 162, 247, 0.15);
 }
 
 .name {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 1px;
+    text-shadow:
+        0 0 8px rgba(122, 162, 247, 0.25),
+        0 0 18px rgba(122, 162, 247, 0.08);
 }
 
 .role {
     font-size: 14px;
-    color: var(--muted);
+    color: #facc15;
+    text-shadow: 0 0 8px rgba(250, 204, 21, 0.25);
 }
 
-/* 💻 TERMINAL BIGGER */
+/* TERMINAL */
 .terminal {
-    width: 1000px;
+    width: min(1000px, 92vw);
     min-height: 500px;
 
     background: var(--panel);
@@ -64,20 +70,26 @@ body {
     border-radius: 12px;
 
     padding: 22px;
+
+    transition: 0.2s;
+}
+
+.terminal:hover {
+    border-color: rgba(122, 162, 247, 0.25);
 }
 
 /* OUTPUT */
 .output {
     color: var(--muted);
     font-size: 15px;
-    margin: 10px 0;
+    margin-bottom: 16px;
+    white-space: pre-wrap;
 }
 
 /* INPUT */
 .input-line {
     display: flex;
     gap: 12px;
-    margin-top: 18px;
     align-items: center;
 }
 
@@ -93,47 +105,8 @@ input {
     outline: none;
 
     color: var(--text);
-
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
-
     font-size: 15px;
-}
-.role {
-    font-size: 14px;
-    color: #facc15; /* 🎯 زرد خوش‌رنگ (amber/yellow) */
 
-    position: relative;
-
-    text-shadow: 0 0 8px rgba(250, 204, 21, 0.25);
-
-
-}
-.name {
-    font-size: 20px;
-    font-weight: 700;
-
-    color: #cdd6f4;
-
-    position: relative;
-    display: inline-block;
-
-    letter-spacing: 1px;
-
-    /* ✨ glow ملایم */
-    text-shadow:
-        0 0 8px rgba(122, 162, 247, 0.25),
-        0 0 18px rgba(122, 162, 247, 0.08);
-}
-
-.avatar {
-    width: 56px;
-    height: 56px;
-
-    border-radius: 50%;
-
-    border: 2px solid rgba(255, 255, 255, 0.08);
-
-    object-fit: cover;
-
-    box-shadow: 0 0 18px rgba(122, 162, 247, 0.15);
+    caret-color: var(--accent);
+    font-family: "Fira Code", monospace;
 }
