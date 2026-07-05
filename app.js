@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const terminal = document.getElementById("terminal");
+    const output = document.getElementById("output");
+    const input = document.getElementById("cmd");
+    const form = document.getElementById("form");
 
     const commands = {
         help: () => {
@@ -24,7 +27,7 @@ fastfetch-config`
         ),
 
         clear: () => {
-            terminal.innerHTML = "";
+            output.innerHTML = "";
             boot();
             return false;
         }
@@ -33,15 +36,14 @@ fastfetch-config`
     function print(text) {
         const div = document.createElement("div");
         div.className = "output";
-        div.style.whiteSpace = "pre";
         div.textContent = text;
-        terminal.appendChild(div);
+        output.appendChild(div);
     }
 
     function printType(text, speed = 15, cb) {
         const div = document.createElement("div");
         div.className = "output";
-        terminal.appendChild(div);
+        output.appendChild(div);
 
         let i = 0;
 
@@ -56,7 +58,7 @@ fastfetch-config`
     function runCommand(cmd) {
         const value = cmd.trim().toLowerCase();
 
-        print(`~/portfolio $ ${value}`);
+        print(` ~/portfolio $ ${value}`);
 
         if (commands[value]) {
             const result = commands[value]();
@@ -64,56 +66,26 @@ fastfetch-config`
         } else {
             print(`command not found: ${value}`);
         }
-
-        createInput();
-    }
-
-    function createInput() {
-        const line = document.createElement("div");
-        line.className = "input-line";
-
-        const input = document.createElement("input");
-        input.autocomplete = "off";
-        input.spellcheck = false;
-
-        const prompt = document.createElement("span");
-        prompt.className = "prompt";
-        prompt.textContent = "~/portfolio $";
-
-        line.appendChild(prompt);
-        line.appendChild(input);
-
-        terminal.appendChild(line);
-
-        input.focus();
-
-        input.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-                const value = input.value;
-
-                // freeze input
-                input.disabled = true;
-
-                line.innerHTML = `
-                    <span class="prompt">~/portfolio $</span>
-                    <span class="command"></span>
-                `;
-
-                line.querySelector(".command").textContent = value;
-
-                runCommand(value);
-            }
-        });
     }
 
     function boot() {
-        printType("booting SMHO179 terminal...", 15, () => {
+        printType("booting SMHO179 terminal...", 12, () => {
             print("system ready.");
             print("type 'help' to begin.");
+
             setTimeout(() => commands.help(), 300);
-            createInput();
         });
     }
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        runCommand(input.value);
+        input.value = "";
+        input.focus();
+    });
+
+    terminal.addEventListener("click", () => input.focus());
 
     boot();
 });
