@@ -1,16 +1,11 @@
 :root {
-    /* Modern Deep Dark Theme */
-    --bg-color: #030a16;
-    --text: #a8b2d1;
-    --muted: #8892b0;
+    --bg: #0b0f17;
+    --panel: rgba(17, 17, 27, 0.88);
+    --border: rgba(255, 255, 255, 0.06);
 
-    /* Neon Accents */
-    --green: #64ffda;
-    --blue: #58a6ff;
-    --pink: #ff79c6;
-
-    /* Glassmorphism settings */
-    --glass-border: rgba(255, 255, 255, 0.08);
+    --text: #cdd6f4;
+    --muted: #7f849c;
+    --accent: #7aa2f7;
 }
 
 * {
@@ -19,186 +14,126 @@
 
 body {
     margin: 0;
-    font-family: "Comic Neue", "Fira Code", monospace;
-    background: var(--bg-color);
+    background: var(--bg);
     color: var(--text);
-    overflow-x: hidden;
-    min-height: 100vh;
+
+    /* 👇 Comic Sans */
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-top: 60px;
 }
 
-/* 🌌 Stunning Glowing Background Orbs */
-.bg-layer {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    overflow: hidden;
-    background: var(--bg-color);
+/* 👤 PROFILE BIGGER */
+.profile {
+    width: 1000px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    margin-bottom: 16px;
 }
 
-.orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px); /* Massive blur for ambient glow */
-    opacity: 0.6;
-    animation: float 12s infinite alternate ease-in-out;
+.avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
 }
 
-.orb-1 {
-    width: 400px;
-    height: 400px;
-    background: rgba(100, 255, 218, 0.15); /* Teal glow */
-    top: -10%;
-    left: -10%;
+.name {
+    font-size: 18px;
+    font-weight: bold;
 }
 
-.orb-2 {
-    width: 500px;
-    height: 500px;
-    background: rgba(88, 166, 255, 0.15); /* Blue glow */
-    bottom: -20%;
-    right: -10%;
-    animation-delay: -5s;
+.role {
+    font-size: 14px;
+    color: var(--muted);
 }
 
-.orb-3 {
-    width: 300px;
-    height: 300px;
-    background: rgba(255, 121, 198, 0.1); /* Subtle pink glow */
-    top: 40%;
-    left: 60%;
-    animation-duration: 15s;
-}
-
-@keyframes float {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(40px, -50px) scale(1.2); }
-}
-
-/* 📦 Premium Glass Terminal */
+/* 💻 TERMINAL BIGGER */
 .terminal {
-    max-width: 850px;
-    width: 90%;
-    margin: 6vh auto;
-    padding: 32px;
+    width: 1000px;
+    min-height: 500px;
 
-    /* The Blur & Glass Effect */
-    background: linear-gradient(135deg, rgba(3, 10, 22, 0.6) 0%, rgba(10, 25, 47, 0.4) 100%);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
 
-    border: 1px solid var(--glass-border);
-    border-top: 1px solid rgba(255, 255, 255, 0.15); /* Top highlight for 3D effect */
-    border-radius: 16px;
-
-    box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.4),
-        inset 0 0 20px rgba(100, 255, 218, 0.03);
-
-    opacity: 0;
-    transform: translateY(30px);
-    animation: terminalEnter 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    padding: 22px;
 }
 
-@keyframes terminalEnter {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* OUTPUT */
+.output {
+    color: var(--muted);
+    font-size: 15px;
+    margin: 10px 0;
 }
 
-/* Typography & Layout */
-.line {
+/* INPUT */
+.input-line {
     display: flex;
     gap: 12px;
-    margin-top: 20px;
+    margin-top: 18px;
     align-items: center;
-    flex-wrap: wrap;
-    animation: lineIn 0.3s ease-out;
-}
-
-@keyframes lineIn {
-    from { opacity: 0; transform: translateX(-10px); }
-    to { opacity: 1; transform: translateX(0); }
 }
 
 .prompt {
-    color: var(--green);
-    font-weight: bold;
-    text-shadow: 0 0 8px rgba(100, 255, 218, 0.3); /* Neon glow */
+    color: var(--accent);
+    font-size: 15px;
 }
 
-.command {
-    color: #e2e8f0;
-}
-
-.cmd-highlight {
-    color: var(--blue);
-    font-weight: bold;
-}
-
-.output {
-    margin: 8px 0 24px 20px;
-    color: var(--muted);
-    line-height: 1.7;
-    letter-spacing: 0.3px;
-    animation: fadeUp 0.4s ease-out;
-}
-
-.output a {
-    display: inline-block;
-    font-weight: bold;
-}
-
-@keyframes fadeUp {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Links */
-a {
-    color: var(--green);
-    text-decoration: none;
-    border-bottom: 1px dashed var(--muted);
-    transition: all 0.2s ease;
-}
-
-a:hover {
-    color: var(--blue);
-    border-bottom-color: var(--blue);
-    text-shadow: 0 0 8px rgba(88, 166, 255, 0.4);
-}
-
-/* Interactive Input styles */
-.interactive-line {
-    display: flex;
-    align-items: center;
-}
-
-.cmd-input {
+input {
+    flex: 1;
     background: transparent;
     border: none;
-    color: #e2e8f0;
-    font-family: inherit;
-    font-size: inherit;
     outline: none;
-    flex-grow: 1;
-    width: 100%;
-    margin-left: 5px;
-    caret-color: var(--green);
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+
+    color: var(--text);
+
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+
+    font-size: 15px;
+}
+.role {
+    font-size: 14px;
+    color: #facc15; /* 🎯 زرد خوش‌رنگ (amber/yellow) */
+
+    position: relative;
+
+    text-shadow: 0 0 8px rgba(250, 204, 21, 0.25);
+
+
+}
+.name {
+    font-size: 20px;
+    font-weight: 700;
+
+    color: #cdd6f4;
+
+    position: relative;
+    display: inline-block;
+
+    letter-spacing: 1px;
+
+    /* ✨ glow ملایم */
+    text-shadow:
+        0 0 8px rgba(122, 162, 247, 0.25),
+        0 0 18px rgba(122, 162, 247, 0.08);
 }
 
-/* Beautiful Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.2);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--muted);
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--green);
+.avatar {
+    width: 56px;
+    height: 56px;
+
+    border-radius: 50%;
+
+    border: 2px solid rgba(255, 255, 255, 0.08);
+
+    object-fit: cover;
+
+    box-shadow: 0 0 18px rgba(122, 162, 247, 0.15);
 }

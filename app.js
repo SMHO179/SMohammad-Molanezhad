@@ -1,106 +1,108 @@
 document.addEventListener("DOMContentLoaded", () => {
     const terminal = document.getElementById("terminal");
-
-    // Portfolio Content updated with actual repositories
     const commands = {
+        help: "whoami, skills, projects, contact, clear",
         whoami: "SMHO179 | Backend Developer | Go · Python · Linux · DevOps",
-        skills: `<br>
-                 > <b>Languages:</b> Go, Python, Bash, SQL<br>
-                 > <b>Tools:</b> Docker, Kubernetes, Linux, Git, CI/CD<br>
-                 > <b>Cloud:</b> AWS, GCP`,
-        projects: `<br>
-                   📦 <b><a href="https://github.com/SMHO179/camera-lock-github" target="_blank">camera-lock</a></b><br>
-                   &nbsp;&nbsp;&nbsp;Python + OpenCV script that locks your Linux screen when no face is detected.<br><br>
 
-                   📦 <b><a href="https://github.com/SMHO179/GoWeather" target="_blank">GoWeather</a></b><br>
-                   &nbsp;&nbsp;&nbsp;Weather application utility built entirely in Go.<br><br>
+        skills: "Go, Python, Docker, Kubernetes, Linux",
 
-                   📦 <b><a href="https://github.com/SMHO179/searxng-docker-compose" target="_blank">searxng-docker-compose</a></b><br>
-                   &nbsp;&nbsp;&nbsp;Docker Compose setup to self-host a private, decentralized SearXNG metasearch instance.<br><br>
+        contact: `
+    Email: SMHO11@protonmail.com
+    GitHub: https://github.com/SMHO179
+    `,
 
-                   📦 <b><a href="https://github.com/SMHO179/fastfetch-config" target="_blank">fastfetch-config</a></b><br>
-                   &nbsp;&nbsp;&nbsp;Custom configuration layouts for the fastfetch system information terminal tool.<br><br>
+        projects: `
+    camera-lock
+    GoWeather
+    metadata-viewer
+    fastfetch-config
+    `,
 
-                   📦 <b><a href="https://github.com/SMHO179/iris-on-knn" target="_blank">iris-on-knn</a></b><br>
-                   &nbsp;&nbsp;&nbsp;Machine learning classification implementation using the K-Nearest Neighbors algorithm.<br><br>
-
-                   📦 <b><a href="https://github.com/SMHO179/metadata-viwer" target="_blank">metadata-viwer</a></b><br>
-                   &nbsp;&nbsp;&nbsp;File metadata extraction and viewing utility tool.<br><br>
-
-                   📦 <b><a href="https://github.com/SMHO179/Py-calculator" target="_blank">Py-calculator</a></b><br>
-                   &nbsp;&nbsp;&nbsp;A clean, core calculation application written in Python.`,
-        contact: `<br>
-                  Email: <a href="mailto:hello@example.com">hello@example.com</a><br>
-                  GitHub: <a href="https://github.com/SMHO179" target="_blank">github.com/SMHO179</a>`,
-        help: "Available commands: <span class='cmd-highlight'>whoami</span>, <span class='cmd-highlight'>skills</span>, <span class='cmd-highlight'>projects</span>, <span class='cmd-highlight'>contact</span>, <span class='cmd-highlight'>clear</span>"
+        clear: "__CLEAR__"
     };
+    ;
+
+    function print(text) {
+        const div = document.createElement("div");
+        div.className = "output";
+        div.style.whiteSpace = "pre";
+        div.textContent = text;
+        terminal.appendChild(div);
+    }
+
+    function printType(text, speed = 15, cb) {
+        const div = document.createElement("div");
+        div.className = "output";
+        terminal.appendChild(div);
+
+        let i = 0;
+
+        function type() {
+            if (i < text.length) {
+                div.textContent += text[i++];
+                setTimeout(type, speed);
+            } else if (cb) cb();
+        }
+
+        type();
+    }
+
+    function runHelp() {
+        print("Available commands:");
+        print(commands.help);
+        createInput();
+    }
 
     function createInput() {
         const line = document.createElement("div");
-        line.className = "line interactive-line";
+        line.className = "input-line";
 
         line.innerHTML = `
-            <span class="prompt">SMHO179@portfolio:~$</span>
-            <input type="text" class="cmd-input" autocomplete="off" spellcheck="false" autofocus>
+            <span class="prompt">~/portfolio $</span>
+            <input autocomplete="off" spellcheck="false" />
         `;
 
         terminal.appendChild(line);
 
-        const inputField = line.querySelector(".cmd-input");
+        const input = line.querySelector("input");
+        input.focus();
 
-        // Small delay ensures the focus works perfectly after DOM updates
-        setTimeout(() => inputField.focus(), 10);
+        input.addEventListener("keydown", (e) => {
+            if (e.key !== "Enter") return;
 
-        inputField.addEventListener("keydown", function(e) {
-            if (e.key === "Enter") {
-                const commandText = this.value.trim().toLowerCase();
+            const value = input.value.trim().toLowerCase();
 
-                // Freeze the input into static text
-                this.parentElement.innerHTML = `
-                    <span class="prompt">SMHO179@portfolio:~$</span>
-                    <span class="command">${commandText}</span>
-                `;
+            line.innerHTML = `
+                <span class="prompt">~/portfolio $</span>
+                <span class="command">${value}</span>
+            `;
 
-                handleCommand(commandText);
+            if (value === "help") {
+                runHelp();
+            }
+            else if (value === "clear") {
+                terminal.innerHTML = "";
+                boot();
+            }
+            else if (commands[value]) {
+                print(commands[value]);
+                createInput();
+            }
+            else {
+                print("command not found: " + value);
+                createInput();
             }
         });
     }
 
-    function handleCommand(cmd) {
-        if (cmd === "clear") {
-            terminal.innerHTML = "";
-            createInput();
-            return;
-        }
+    function boot() {
+        printType("booting SMHO179 terminal...", 15, () => {
+            print("system ready.");
+            print("type 'help' to begin.");
 
-        if (cmd !== "") {
-            const output = document.createElement("div");
-            output.className = "output";
-
-            if (commands[cmd]) {
-                output.innerHTML = commands[cmd];
-            } else {
-                output.innerHTML = `Command not found: <span style="color: var(--pink)">${cmd}</span>. Type 'help' to see available commands.`;
-            }
-            terminal.appendChild(output);
-        }
-
-        createInput();
-
-        // Smoothly scroll down
-        window.scrollTo({
-            top: document.body.scrollHeight,
-            behavior: "smooth"
+            setTimeout(runHelp, 400);
         });
     }
 
-    // Always keep focus on the terminal when the user clicks the background
-    document.body.addEventListener("click", () => {
-        const activeInput = document.querySelector(".cmd-input");
-        if (activeInput) {
-            activeInput.focus();
-        }
-    });
-
-    createInput();
+    boot();
 });
