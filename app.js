@@ -58,7 +58,7 @@ fastfetch-config`
     function runCommand(cmd) {
         const value = cmd.trim().toLowerCase();
 
-        print(` ~/portfolio $ ${value}`);
+        print(`~/portfolio $ ${value}`);
 
         if (commands[value]) {
             const result = commands[value]();
