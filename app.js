@@ -1,6 +1,6 @@
 /* ========================================
    Portfolio JavaScript
-   Mobile Nav, Scroll Animations, Active Nav
+   Mobile Nav, Scroll Animations, Active Nav, Theme Toggle
    ======================================== */
 
 (function () {
@@ -13,6 +13,8 @@
   const navLinks = document.querySelectorAll('.nav-link');
   const fadeElements = document.querySelectorAll('.fade-in');
   const sections = document.querySelectorAll('.section, .hero');
+  const themeToggle = document.getElementById('themeToggle');
+  const themeOptions = document.querySelectorAll('.theme-option');
 
   // ========================================
   // Mobile Navigation
@@ -95,4 +97,47 @@
 
   // Initial call
   updateActiveNav();
+
+  // ========================================
+  // Theme Toggle
+  // ========================================
+  var STORAGE_KEY = 'portfolio-theme';
+
+  function getSavedTheme() {
+    try {
+      return localStorage.getItem(STORAGE_KEY);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function saveTheme(theme) {
+    try {
+      localStorage.setItem(STORAGE_KEY, theme);
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  function applyTheme(theme) {
+    if (theme === 'night') {
+      document.documentElement.removeAttribute('data-theme');
+    } else {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+    themeOptions.forEach(function (btn) {
+      btn.classList.toggle('active', btn.dataset.theme === theme);
+    });
+  }
+
+  var savedTheme = getSavedTheme() || 'night';
+  applyTheme(savedTheme);
+
+  themeOptions.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var theme = this.dataset.theme;
+      applyTheme(theme);
+      saveTheme(theme);
+    });
+  });
 })();

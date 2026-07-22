@@ -3,7 +3,7 @@
    ======================================== */
 
 :root {
-  /* Night Owl Colors */
+  /* Night Owl Colors (Default Dark) */
   --bg-primary: #011627;
   --bg-secondary: #0a1f35;
   --bg-card: #0d253f;
@@ -43,6 +43,62 @@
 }
 
 /* ========================================
+   Day Theme (Light Mode)
+   ======================================== */
+[data-theme="day"] {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f1f5f9;
+  --bg-nav: rgba(248, 250, 252, 0.95);
+
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  --accent-cyan: #0891b2;
+  --accent-purple: #9333ea;
+  --accent-yellow: #ca8a04;
+  --accent-blue: #2563eb;
+  --accent-red: #dc2626;
+  --accent-green: #16a34a;
+  --accent-orange: #ea580c;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 30px rgba(8, 145, 178, 0.08);
+}
+
+/* ========================================
+   Tokyo Night Theme
+   ======================================== */
+[data-theme="tokyo-night"] {
+  --bg-primary: #1a1b26;
+  --bg-secondary: #1f2335;
+  --bg-card: #24283b;
+  --bg-card-hover: #292e42;
+  --bg-nav: rgba(26, 27, 38, 0.95);
+
+  --text-primary: #c0caf5;
+  --text-secondary: #9aa5ce;
+  --text-muted: #565f89;
+
+  --accent-cyan: #7dcfff;
+  --accent-purple: #bb9af7;
+  --accent-yellow: #e0af68;
+  --accent-blue: #7aa2f7;
+  --accent-red: #f7768e;
+  --accent-green: #9ece6a;
+  --accent-orange: #ff9e64;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 30px rgba(122, 162, 247, 0.1);
+}
+
+/* ========================================
    Reset & Base
    ======================================== */
 *,
@@ -66,6 +122,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::selection {
@@ -173,6 +230,73 @@ strong {
 }
 
 /* ========================================
+   Theme Toggle
+   ======================================== */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 4px 6px;
+  cursor: pointer;
+  transition: all var(--transition-med);
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="day"] .theme-toggle {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="day"] .theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 1rem;
+}
+
+.theme-option:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="day"] .theme-option:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.theme-option.active {
+  color: var(--accent-cyan);
+  background: rgba(127, 219, 202, 0.12);
+}
+
+[data-theme="day"] .theme-option.active {
+  background: rgba(8, 145, 178, 0.1);
+}
+
+[data-theme="tokyo-night"] .theme-option.active {
+  background: rgba(122, 162, 247, 0.15);
+}
+
+/* ========================================
    Navigation
    ======================================== */
 .navbar {
@@ -185,7 +309,7 @@ strong {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-  transition: all var(--transition-med);
+  transition: all var(--transition-med), background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .nav-container {
@@ -334,6 +458,7 @@ strong {
   width: 100%;
   max-width: 440px;
   border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .code-header {
@@ -341,6 +466,7 @@ strong {
   gap: 8px;
   padding: 14px 18px;
   background: rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
 }
 
 .dot {
@@ -395,6 +521,7 @@ strong {
 
 .section-alt {
   background: var(--bg-secondary);
+  transition: background-color 0.3s ease;
 }
 
 .section-title {
@@ -437,7 +564,7 @@ strong {
   background: var(--bg-card);
   border-radius: var(--border-radius-sm);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: all var(--transition-med);
+  transition: all var(--transition-med), background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .stat-card:hover {
@@ -483,7 +610,7 @@ strong {
   background: var(--bg-card);
   border-radius: var(--border-radius);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: all var(--transition-med);
+  transition: all var(--transition-med), background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .tech-card:hover {
@@ -518,7 +645,7 @@ strong {
   border-radius: var(--border-radius);
   padding: 32px;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: all var(--transition-med);
+  transition: all var(--transition-med), background-color 0.3s ease, border-color 0.3s ease;
   display: flex;
   flex-direction: column;
 }
@@ -598,7 +725,7 @@ strong {
   padding: 36px 28px;
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: all var(--transition-med);
+  transition: all var(--transition-med), background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .learning-card:hover {
@@ -642,7 +769,7 @@ strong {
   padding: 32px 24px;
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: all var(--transition-med);
+  transition: all var(--transition-med), background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .focus-card:hover {
@@ -687,6 +814,7 @@ strong {
   border: 1px solid rgba(255, 255, 255, 0.05);
   max-width: 500px;
   width: 100%;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .github-card img {
@@ -730,7 +858,7 @@ strong {
   background: var(--bg-card);
   border-radius: var(--border-radius);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: all var(--transition-med);
+  transition: all var(--transition-med), background-color 0.3s ease, border-color 0.3s ease;
   min-width: 200px;
 }
 
@@ -758,6 +886,7 @@ strong {
 .footer {
   padding: 40px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
+  transition: border-color 0.3s ease;
 }
 
 .footer-content {
