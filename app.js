@@ -1,91 +1,98 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const terminal = document.getElementById("terminal");
-    const output = document.getElementById("output");
-    const input = document.getElementById("cmd");
-    const form = document.getElementById("form");
+/* ========================================
+   Portfolio JavaScript
+   Mobile Nav, Scroll Animations, Active Nav
+   ======================================== */
 
-    const commands = {
-        help: () => {
-            print("Available commands:");
-            print("help, whoami, skills, projects, contact, clear");
-        },
+(function () {
+  'use strict';
 
-        whoami: () => print("SMHO179 | Backend Developer | Go · Python · Linux · DevOps"),
+  // DOM Elements
+  const navbar = document.getElementById('navbar');
+  const navToggle = document.getElementById('navToggle');
+  const navMenu = document.getElementById('navMenu');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const fadeElements = document.querySelectorAll('.fade-in');
+  const sections = document.querySelectorAll('.section, .hero');
 
-        skills: () => print("Go, Python, Docker, Kubernetes, Linux"),
+  // ========================================
+  // Mobile Navigation
+  // ========================================
+  navToggle.addEventListener('click', function () {
+    this.classList.toggle('active');
+    navMenu.classList.toggle('active');
+  });
 
-        contact: () => print(
-`Email: SMHO11@protonmail.com
-GitHub: https://github.com/SMHO179`
-        ),
-
-        projects: () => print(
-`camera-lock
-GoWeather
-metadata-viewer
-fastfetch-config`
-        ),
-
-        clear: () => {
-            output.innerHTML = "";
-            boot();
-            return false;
-        }
-    };
-
-    function print(text) {
-        const div = document.createElement("div");
-        div.className = "output";
-        div.textContent = text;
-        output.appendChild(div);
-    }
-
-    function printType(text, speed = 15, cb) {
-        const div = document.createElement("div");
-        div.className = "output";
-        output.appendChild(div);
-
-        let i = 0;
-
-        (function type() {
-            if (i < text.length) {
-                div.textContent += text[i++];
-                setTimeout(type, speed);
-            } else if (cb) cb();
-        })();
-    }
-
-    function runCommand(cmd) {
-        const value = cmd.trim().toLowerCase();
-
-        print(`~/portfolio $ ${value}`);
-
-        if (commands[value]) {
-            const result = commands[value]();
-            if (result === false) return;
-        } else {
-            print(`command not found: ${value}`);
-        }
-    }
-
-    function boot() {
-        printType("booting SMHO179 terminal...", 12, () => {
-            print("system ready.");
-            print("type 'help' to begin.");
-
-            setTimeout(() => commands.help(), 300);
-        });
-    }
-
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        runCommand(input.value);
-        input.value = "";
-        input.focus();
+  // Close mobile menu on link click
+  navLinks.forEach(function (link) {
+    link.addEventListener('click', function () {
+      navToggle.classList.remove('active');
+      navMenu.classList.remove('active');
     });
+  });
 
-    terminal.addEventListener("click", () => input.focus());
+  // Close menu on outside click
+  document.addEventListener('click', function (e) {
+    if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+      navToggle.classList.remove('active');
+      navMenu.classList.remove('active');
+    }
+  });
 
-    boot();
-});
+  // ========================================
+  // Scroll Animations (Intersection Observer)
+  // ========================================
+  var fadeObserver = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px',
+    }
+  );
+
+  fadeElements.forEach(function (el) {
+    fadeObserver.observe(el);
+  });
+
+  // ========================================
+  // Active Navigation Highlight
+  // ========================================
+  function updateActiveNav() {
+    var scrollPos = window.scrollY + 120;
+
+    sections.forEach(function (section) {
+      var top = section.offsetTop;
+      var height = section.offsetHeight;
+      var id = section.getAttribute('id');
+
+      if (scrollPos >= top && scrollPos < top + height) {
+        navLinks.forEach(function (link) {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }
+
+  // Throttle scroll handler
+  var scrollTimeout;
+  window.addEventListener('scroll', function () {
+    if (scrollTimeout) {
+      window.cancelAnimationFrame(scrollTimeout);
+    }
+    scrollTimeout = window.requestAnimationFrame(function () {
+      updateActiveNav();
+    });
+  });
+
+  // Initial call
+  updateActiveNav();
+})();
