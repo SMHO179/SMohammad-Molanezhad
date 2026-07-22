@@ -1,25 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="night">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mohammad Hesam — Backend Developer</title>
   <meta name="description" content="Backend Developer focused on Go and Python. Building backend services, CLI tools, and self-hosted infrastructure.">
-  <link rel="stylesheet" href="style.css">
+  <meta name="color-scheme" content="dark light">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <nav class="navbar" id="navbar">
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="navbar" id="navbar" aria-label="Main navigation">
     <div class="nav-container">
-      <a href="#hero" class="nav-logo">MH<span class="accent">.</span></a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
+      <a href="#hero" class="nav-logo" aria-label="Mohammad Hesam - Home">MH<span class="accent">.</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navMenu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
       </button>
-      <ul class="nav-menu" id="navMenu">
+      <ul class="nav-menu" id="navMenu" role="list">
         <li><a href="#about" class="nav-link">About</a></li>
         <li><a href="#tech" class="nav-link">Tech Stack</a></li>
         <li><a href="#projects" class="nav-link">Projects</a></li>
@@ -27,26 +31,27 @@
         <li><a href="#focus" class="nav-link">Focus</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
-      <div class="theme-toggle" id="themeToggle">
-        <button class="theme-option" data-theme="day" title="Day Mode">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <div class="theme-toggle" id="themeToggle" role="radiogroup" aria-label="Theme selection">
+        <button class="theme-option active" data-theme="night" role="radio" aria-checked="true" aria-label="Night mode" title="Night Mode">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
         </button>
-        <button class="theme-option" data-theme="night" title="Night Mode">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <button class="theme-option" data-theme="day" role="radio" aria-checked="false" aria-label="Day mode" title="Day Mode">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
         </button>
-        <button class="theme-option" data-theme="tokyo-night" title="Tokyo Night">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <button class="theme-option" data-theme="tokyo-night" role="radio" aria-checked="false" aria-label="Tokyo Night mode" title="Tokyo Night">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         </button>
       </div>
     </div>
   </nav>
 
+  <!-- ===== Hero Section ===== -->
   <header class="hero" id="hero">
     <div class="hero-container">
       <div class="hero-content fade-in">
         <p class="hero-greeting">Hi, my name is</p>
         <h1 class="hero-name">Mohammad Hesam<span class="accent">.</span></h1>
-        <h2 class="hero-title">Backend Developer</h2>
+        <p class="hero-title">Backend Developer</p>
         <p class="hero-description">
           I enjoy building backend services, command-line tools, and self-hosted infrastructure.
           My primary interests include Linux, automation, DevOps, and open-source software.
@@ -58,10 +63,10 @@
       </div>
       <div class="hero-decoration fade-in">
         <div class="code-block">
-          <div class="code-header">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
+          <div class="code-header" aria-hidden="true">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
           </div>
           <pre><code><span class="kw">package</span> main
 
@@ -75,7 +80,10 @@
     </div>
   </header>
 
-  <main>
+  <!-- ===== Main Content ===== -->
+  <main id="main-content">
+
+    <!-- About Section -->
     <section class="section" id="about">
       <div class="container">
         <h2 class="section-title fade-in">About Me</h2>
@@ -94,74 +102,81 @@
           </div>
           <div class="about-stats">
             <div class="stat-card fade-in">
-              <span class="stat-icon">
+              <span class="stat-icon" aria-hidden="true">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
               </span>
-              <span class="stat-label">Languages</span>
-              <span class="stat-value">Go & Python</span>
+              <span class="stat-content">
+                <span class="stat-label">Languages</span>
+                <span class="stat-value">Go &amp; Python</span>
+              </span>
             </div>
             <div class="stat-card fade-in">
-              <span class="stat-icon">
+              <span class="stat-icon" aria-hidden="true">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
               </span>
-              <span class="stat-label">Environment</span>
-              <span class="stat-value">Linux</span>
+              <span class="stat-content">
+                <span class="stat-label">Environment</span>
+                <span class="stat-value">Linux</span>
+              </span>
             </div>
             <div class="stat-card fade-in">
-              <span class="stat-icon">
+              <span class="stat-icon" aria-hidden="true">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
               </span>
-              <span class="stat-label">Focus</span>
-              <span class="stat-value">Backend & DevOps</span>
+              <span class="stat-content">
+                <span class="stat-label">Focus</span>
+                <span class="stat-value">Backend &amp; DevOps</span>
+              </span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Tech Stack Section -->
     <section class="section section-alt" id="tech">
       <div class="container">
         <h2 class="section-title fade-in">Tech Stack</h2>
         <p class="section-subtitle fade-in">Technologies I work with</p>
         <div class="tech-grid fade-in">
           <div class="tech-card">
-            <div class="tech-icon">
+            <div class="tech-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#00ADD8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18c0 1.1.9 2 2 2h10a2 2 0 002-2V6a2 2 0 00-2-2H7a2 2 0 00-2 2v12z"/><path d="M11 10h2"/><path d="M9 12h2"/><path d="M9 14h4"/><text x="12" y="12" font-family="sans-serif" font-size="4" fill="#00ADD8" stroke="none" text-anchor="middle" dominant-baseline="middle" font-weight="bold">GO</text></svg>
             </div>
             <span class="tech-name">Go</span>
           </div>
           <div class="tech-card">
-            <div class="tech-icon">
+            <div class="tech-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#3776AB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8 2 7 4 7 4v3h5v1H5s-3-.5-3 3.5S5 15 5 15h2v-2.5s-.1-2.5 2.5-2.5h4.5s2.5 0 2.5-2.5V4.5S17 2 12 2z"/><circle cx="9.5" cy="5" r="0.5" fill="#FFD43B" stroke="none"/><path d="M20 18c0 1.1-.9 2-2 2h-3l2-4c.4-.8-.1-1.7-1-1.7H14v5"/></svg>
             </div>
             <span class="tech-name">Python</span>
           </div>
           <div class="tech-card">
-            <div class="tech-icon">
+            <div class="tech-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#2496ED" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="13" rx="2"/><path d="M6 7V5a2 2 0 012-2h8a2 2 0 012 2v2"/><line x1="12" y1="11" x2="12" y2="16"/><line x1="9.5" y1="13.5" x2="14.5" y2="13.5"/></svg>
             </div>
             <span class="tech-name">Docker</span>
           </div>
           <div class="tech-card">
-            <div class="tech-icon">
+            <div class="tech-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#F05032" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="1.05" y1="12" x2="7" y2="12"/><line x1="17.01" y1="12" x2="22.96" y2="12"/><line x1="12" y1="1.05" x2="12" y2="7"/><line x1="12" y1="17" x2="12" y2="22.95"/></svg>
             </div>
             <span class="tech-name">Git</span>
           </div>
           <div class="tech-card">
-            <div class="tech-icon">
+            <div class="tech-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#FCC624" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
             </div>
             <span class="tech-name">Linux</span>
           </div>
           <div class="tech-card">
-            <div class="tech-icon">
+            <div class="tech-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#019733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h2v2H7z"/><path d="M7 11h10"/><path d="M7 15h6"/></svg>
             </div>
             <span class="tech-name">Vim</span>
           </div>
           <div class="tech-card">
-            <div class="tech-icon">
+            <div class="tech-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#57A143" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
             </div>
             <span class="tech-name">Neovim</span>
@@ -170,6 +185,7 @@
       </div>
     </section>
 
+    <!-- Projects Section -->
     <section class="section" id="projects">
       <div class="container">
         <h2 class="section-title fade-in">Featured Projects</h2>
@@ -177,11 +193,11 @@
         <div class="projects-grid fade-in">
           <article class="project-card">
             <div class="project-header">
-              <span class="project-icon">
+              <span class="project-icon" aria-hidden="true">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path></svg>
               </span>
-              <a href="https://github.com/SMHO179/Password-Manager" target="_blank" rel="noopener noreferrer" class="project-link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              <a href="https://github.com/SMHO179/Password-Manager" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Password Manager GitHub repository">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
               </a>
             </div>
             <h3 class="project-title">Password Manager</h3>
@@ -192,18 +208,18 @@
               <span class="tag">Security</span>
             </div>
             <a href="https://github.com/SMHO179/Password-Manager" target="_blank" rel="noopener noreferrer" class="btn btn-card">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"></path></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"></path></svg>
               View on GitHub
             </a>
           </article>
 
           <article class="project-card">
             <div class="project-header">
-              <span class="project-icon">
+              <span class="project-icon" aria-hidden="true">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"></path></svg>
               </span>
-              <a href="https://github.com/SMHO179/GoWeather" target="_blank" rel="noopener noreferrer" class="project-link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              <a href="https://github.com/SMHO179/GoWeather" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="GoWeather GitHub repository">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
               </a>
             </div>
             <h3 class="project-title">GoWeather</h3>
@@ -214,7 +230,7 @@
               <span class="tag">API</span>
             </div>
             <a href="https://github.com/SMHO179/GoWeather" target="_blank" rel="noopener noreferrer" class="btn btn-card">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"></path></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"></path></svg>
               View on GitHub
             </a>
           </article>
@@ -222,27 +238,28 @@
       </div>
     </section>
 
+    <!-- Learning Section -->
     <section class="section section-alt" id="learning">
       <div class="container">
         <h2 class="section-title fade-in">Currently Learning</h2>
         <p class="section-subtitle fade-in">Technologies I'm exploring right now</p>
         <div class="learning-grid fade-in">
           <div class="learning-card">
-            <div class="learning-icon">
+            <div class="learning-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#326CE5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4"/><path d="M12 19v4"/><path d="M1 12h4"/><path d="M19 12h4"/><path d="M5.6 5.6l2.8 2.8"/><path d="M15.6 15.6l2.8 2.8"/><path d="M5.6 18.4l2.8-2.8"/><path d="M15.6 8.4l2.8-2.8"/></svg>
             </div>
             <h3 class="learning-name">Kubernetes</h3>
             <p class="learning-desc">Container orchestration for scaling and managing deployments.</p>
           </div>
           <div class="learning-card">
-            <div class="learning-icon">
+            <div class="learning-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#623CE4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
             </div>
             <h3 class="learning-name">Terraform</h3>
             <p class="learning-desc">Infrastructure as code for provisioning cloud resources.</p>
           </div>
           <div class="learning-card">
-            <div class="learning-icon">
+            <div class="learning-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#2088FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
             </div>
             <h3 class="learning-name">GitHub Actions</h3>
@@ -252,41 +269,42 @@
       </div>
     </section>
 
+    <!-- Focus Areas Section -->
     <section class="section" id="focus">
       <div class="container">
         <h2 class="section-title fade-in">Focus Areas</h2>
         <p class="section-subtitle fade-in">What I specialize in</p>
         <div class="focus-grid fade-in">
           <div class="focus-card">
-            <div class="focus-icon">
+            <div class="focus-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#7FDBCA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
             </div>
             <h3 class="focus-name">Backend Development</h3>
             <p class="focus-desc">Building robust APIs and services with Go and Python.</p>
           </div>
           <div class="focus-card">
-            <div class="focus-icon">
+            <div class="focus-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#C792EA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
             </div>
             <h3 class="focus-name">DevOps</h3>
             <p class="focus-desc">Streamlining deployment and operations with modern tooling.</p>
           </div>
           <div class="focus-card">
-            <div class="focus-icon">
+            <div class="focus-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#FFCB6B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
             </div>
             <h3 class="focus-name">Automation</h3>
             <p class="focus-desc">Automating repetitive tasks and workflows for efficiency.</p>
           </div>
           <div class="focus-card">
-            <div class="focus-icon">
+            <div class="focus-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#82AAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
             </div>
             <h3 class="focus-name">Self-Hosting</h3>
             <p class="focus-desc">Running and managing personal servers and services.</p>
           </div>
           <div class="focus-card">
-            <div class="focus-icon">
+            <div class="focus-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#7FDBCA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </div>
             <h3 class="focus-name">Open Source</h3>
@@ -296,24 +314,26 @@
       </div>
     </section>
 
+    <!-- GitHub Stats Section -->
     <section class="section section-alt" id="github">
       <div class="container">
         <h2 class="section-title fade-in">GitHub Stats</h2>
         <p class="section-subtitle fade-in">My coding activity</p>
         <div class="github-grid fade-in">
           <div class="github-card">
-            <img src="https://github-readme-stats.shion.dev/api/top-langs/?username=SMHO179&theme=dark&layout=compact&hide_border=true&hide=Jupyter%20Notebook" alt="Top Languages" loading="lazy">
+            <img src="https://github-readme-stats.shion.dev/api/top-langs/?username=SMHO179&theme=dark&layout=compact&hide_border=true&hide=Jupyter%20Notebook" alt="Top Languages" loading="lazy" width="495" height="195">
           </div>
         </div>
         <div class="github-profile fade-in">
           <a href="https://github.com/SMHO179" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"></path></svg>
             View GitHub Profile
           </a>
         </div>
       </div>
     </section>
 
+    <!-- Contact Section -->
     <section class="section" id="contact">
       <div class="container">
         <h2 class="section-title fade-in">Get in Touch</h2>
@@ -324,12 +344,12 @@
           </p>
           <div class="contact-methods">
             <a href="mailto:SMHO11@protonmail.com" class="contact-card">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8B89CC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8B89CC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               <span class="contact-label">Proton Mail</span>
               <span class="contact-address">SMHO11@protonmail.com</span>
             </a>
             <a href="https://github.com/SMHO179" target="_blank" rel="noopener noreferrer" class="contact-card">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C792EA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"></path></svg>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C792EA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"></path></svg>
               <span class="contact-label">GitHub</span>
               <span class="contact-address">SMHO179</span>
             </a>
@@ -339,13 +359,14 @@
     </section>
   </main>
 
-  <footer class="footer">
+  <!-- ===== Footer ===== -->
+  <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-content">
         <p class="footer-text">
           Built with care by <strong>Mohammad Hesam</strong>
         </p>
-        <p class="footer-copyright">&copy; 2025. All rights reserved.</p>
+        <p class="footer-copyright">&copy; 2026. All rights reserved.</p>
       </div>
     </div>
   </footer>
