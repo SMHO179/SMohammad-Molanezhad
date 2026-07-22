@@ -16,6 +16,22 @@
   var fadeElements = document.querySelectorAll('.fade-in');
   var sections = document.querySelectorAll('.section, .hero');
   var themeOptions = document.querySelectorAll('.theme-option');
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ========================================
+  // Stagger Delays for Grid Items
+  // ========================================
+  function assignStaggerDelays() {
+    var grids = document.querySelectorAll('.tech-grid, .projects-grid, .learning-grid, .focus-grid, .about-stats, .contact-methods');
+    grids.forEach(function (grid) {
+      var children = grid.querySelectorAll('.fade-in');
+      children.forEach(function (child, index) {
+        child.setAttribute('data-delay', Math.min(index + 1, 7));
+      });
+    });
+  }
+
+  assignStaggerDelays();
 
   // ========================================
   // Mobile Navigation
@@ -63,10 +79,19 @@
   });
 
   // ========================================
+  // Navbar Scroll Effect
+  // ========================================
+  function updateNavbarScroll() {
+    if (window.scrollY > 20) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  }
+
+  // ========================================
   // Scroll Animations (Intersection Observer)
   // ========================================
-  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   if (!prefersReducedMotion) {
     var fadeObserver = new IntersectionObserver(
       function (entries) {
@@ -120,6 +145,7 @@
   window.addEventListener('scroll', function () {
     if (!scrollTicking) {
       window.requestAnimationFrame(function () {
+        updateNavbarScroll();
         updateActiveNav();
         scrollTicking = false;
       });
@@ -127,6 +153,7 @@
     }
   }, { passive: true });
 
+  updateNavbarScroll();
   updateActiveNav();
 
   // ========================================
@@ -174,4 +201,19 @@
       saveTheme(theme);
     });
   });
+
+  // ========================================
+  // Button Ripple Effect Coordinates
+  // ========================================
+  if (!prefersReducedMotion) {
+    document.querySelectorAll('.btn').forEach(function (btn) {
+      btn.addEventListener('mouseenter', function (e) {
+        var rect = btn.getBoundingClientRect();
+        var x = ((e.clientX - rect.left) / rect.width) * 100;
+        var y = ((e.clientY - rect.top) / rect.height) * 100;
+        btn.style.setProperty('--ripple-x', x + '%');
+        btn.style.setProperty('--ripple-y', y + '%');
+      });
+    });
+  }
 })();
