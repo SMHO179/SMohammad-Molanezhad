@@ -141,17 +141,7 @@
   }
 
   // Throttle scroll handler with rAF
-  var scrollTicking = false;
-  window.addEventListener('scroll', function () {
-    if (!scrollTicking) {
-      window.requestAnimationFrame(function () {
-        updateNavbarScroll();
-        updateActiveNav();
-        scrollTicking = false;
-      });
-      scrollTicking = true;
-    }
-  }, { passive: true });
+  // (unified below after all scroll functions are defined)
 
   updateNavbarScroll();
   updateActiveNav();
@@ -216,4 +206,90 @@
       });
     });
   }
+
+  // ========================================
+  // Scroll Progress Bar
+  // ========================================
+  var scrollProgress = document.getElementById('scrollProgress');
+
+  function updateScrollProgress() {
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    scrollProgress.style.width = progress + '%';
+  }
+
+  // ========================================
+  // Back to Top Button
+  // ========================================
+  var backToTop = document.getElementById('backToTop');
+
+  function updateBackToTop() {
+    if (window.scrollY > 400) {
+      backToTop.classList.add('visible');
+    } else {
+      backToTop.classList.remove('visible');
+    }
+  }
+
+  backToTop.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+  });
+
+  // ========================================
+  // Copy Email to Clipboard
+  // ========================================
+  var copyToast = document.getElementById('copyToast');
+  var toastTimeout = null;
+
+  function showToast() {
+    copyToast.classList.add('show');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(function () {
+      copyToast.classList.remove('show');
+    }, 2000);
+  }
+
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var text = btn.getAttribute('data-copy');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(showToast);
+      } else {
+        var textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showToast();
+      }
+    });
+  });
+
+  // ========================================
+  // Unified Scroll Handler
+  // ========================================
+  var scrollTicking = false;
+  window.addEventListener('scroll', function () {
+    if (!scrollTicking) {
+      window.requestAnimationFrame(function () {
+        updateNavbarScroll();
+        updateActiveNav();
+        updateScrollProgress();
+        updateBackToTop();
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  }, { passive: true });
+
+  updateNavbarScroll();
+  updateActiveNav();
+  updateScrollProgress();
+  updateBackToTop();
 })();

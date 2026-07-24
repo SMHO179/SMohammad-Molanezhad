@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
   <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
   <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
   <a href="#main-content" class="skip-link">Skip to content</a>
@@ -53,7 +54,7 @@
       <div class="hero-content fade-in">
         <p class="hero-greeting">Hi, my name is</p>
         <h1 class="hero-name">Mohammad Hesam<span class="accent">.</span></h1>
-        <p class="hero-title">Backend Developer</p>
+        <p class="hero-title">Backend Developer<span class="hero-cursor" aria-hidden="true"></span></p>
         <p class="hero-description">
           I enjoy building backend services, command-line tools, and self-hosted infrastructure.
           My primary interests include Linux, automation, DevOps, and open-source software.
@@ -345,11 +346,16 @@
             I'm always open to discussing new projects, creative ideas, or opportunities to be part of something great.
           </p>
           <div class="contact-methods">
-            <a href="mailto:SMHO11@protonmail.com" class="contact-card">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8B89CC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              <span class="contact-label">Proton Mail</span>
-              <span class="contact-address">SMHO11@protonmail.com</span>
-            </a>
+            <div class="contact-card">
+              <a href="mailto:SMHO11@protonmail.com" class="contact-link">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8B89CC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <span class="contact-label">Proton Mail</span>
+                <span class="contact-address">SMHO11@protonmail.com</span>
+              </a>
+              <button class="copy-btn" data-copy="SMHO11@protonmail.com" aria-label="Copy email address" title="Copy email">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              </button>
+            </div>
             <a href="https://github.com/SMHO179" target="_blank" rel="noopener noreferrer" class="contact-card">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C792EA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"></path></svg>
               <span class="contact-label">GitHub</span>
@@ -372,6 +378,12 @@
       </div>
     </div>
   </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <div class="copy-toast" id="copyToast" role="status" aria-live="polite">Email copied!</div>
 
   <script src="app.js"></script>
 </body>
