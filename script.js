@@ -2,14 +2,50 @@ const root = document.documentElement;
 const navbar = document.getElementById("navbar");
 const navToggle = document.getElementById("navToggle");
 const navMenu = document.getElementById("navMenu");
+const themeToggle = document.getElementById("themeToggle");
 const backTop = document.getElementById("backTop");
 const toast = document.getElementById("toast");
 const toastText = document.getElementById("toastText");
 const scrollProgress = document.getElementById("scrollProgress");
-// single theme — clear any old saved theme
-localStorage.removeItem("theme");
+const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
+// Theme
+const syncThemeUI = () => {
+  const isDark = root.classList.contains("dark");
+
+  if (themeColorMeta) {
+    themeColorMeta.setAttribute("content", isDark ? "#002b36" : "#fdf6e3");
+  }
+
+  if (themeToggle) {
+    themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+    themeToggle.setAttribute("aria-pressed", String(isDark));
+  }
+};
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const isDark = root.classList.toggle("dark");
+
+    try {
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    } catch {
+      // Storage can be unavailable (private mode); theme still works for this session.
+    }
+
+    syncThemeUI();
+  });
+}
+
+syncThemeUI();
 
 // Mobile navigation
+const closeMenu = () => {
+  navMenu.classList.remove("open");
+  navToggle.classList.remove("open");
+  navToggle.setAttribute("aria-expanded", "false");
+};
+
 navToggle.addEventListener("click", () => {
   const open = navMenu.classList.toggle("open");
   navToggle.classList.toggle("open", open);
@@ -17,26 +53,18 @@ navToggle.addEventListener("click", () => {
 });
 
 document.querySelectorAll(".nav-link").forEach(link => {
-  link.addEventListener("click", () => {
-    navMenu.classList.remove("open");
-    navToggle.classList.remove("open");
-    navToggle.setAttribute("aria-expanded", "false");
-  });
+  link.addEventListener("click", closeMenu);
 });
 
 document.addEventListener("click", event => {
   if (!navMenu.contains(event.target) && !navToggle.contains(event.target)) {
-    navMenu.classList.remove("open");
-    navToggle.classList.remove("open");
-    navToggle.setAttribute("aria-expanded", "false");
+    closeMenu();
   }
 });
 
 document.addEventListener("keydown", event => {
   if (event.key === "Escape") {
-    navMenu.classList.remove("open");
-    navToggle.classList.remove("open");
-    navToggle.setAttribute("aria-expanded", "false");
+    closeMenu();
   }
 });
 
@@ -74,20 +102,44 @@ backTop.addEventListener("click", () => {
 });
 
 // Reveal animations
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-      observer.unobserve(entry.target);
-    }
-  });
-}, {
-  threshold: .12
-});
+const revealItems = document.querySelectorAll(".reveal");
 
-document.querySelectorAll(".reveal").forEach(element => {
-  observer.observe(element);
-});
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: .1,
+    rootMargin: "0px 0px -6% 0px"
+  });
+
+  revealItems.forEach(element => {
+    observer.observe(element);
+  });
+} else {
+  revealItems.forEach(element => {
+    element.classList.add("visible");
+  });
+}
+
+// Pointer spotlight on project cards (fine pointers only)
+const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+if (finePointer.matches && !reducedMotion.matches) {
+  document.querySelectorAll(".project-card").forEach(card => {
+    card.addEventListener("pointermove", event => {
+      const rect = card.getBoundingClientRect();
+
+      card.style.setProperty("--mx", (event.clientX - rect.left) + "px");
+      card.style.setProperty("--my", (event.clientY - rect.top) + "px");
+    });
+  });
+}
 
 // Copy email
 const showToast = message => {
