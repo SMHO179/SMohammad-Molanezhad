@@ -151,6 +151,13 @@ const showToast = message => {
   }, 1800);
 };
 
+// Shamsi date
+const shamsiDateElement = document.getElementById("shamsiDate");
+if (shamsiDateElement) {
+  const date = new Intl.DateTimeFormat('fa-IR', { calendar: 'persian', dateStyle: 'long' }).format(new Date());
+  shamsiDateElement.textContent = date;
+}
+
 document.querySelectorAll("[data-copy]").forEach(button => {
   button.addEventListener("click", async event => {
     event.preventDefault();
