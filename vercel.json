@@ -1,17 +1,15 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [
+  "redirects": [
     {
       "source": "/blog",
-      "destination": "https://blog-sand-six-28.vercel.app/"
+      "destination": "https://blog-sand-six-28.vercel.app/",
+      "permanent": true
     },
     {
       "source": "/blog/",
-      "destination": "https://blog-sand-six-28.vercel.app/"
-    },
-    {
-      "source": "/blog/:path*",
-      "destination": "https://blog-sand-six-28.vercel.app/:path*"
+      "destination": "https://blog-sand-six-28.vercel.app/",
+      "permanent": true
     }
   ]
 }
