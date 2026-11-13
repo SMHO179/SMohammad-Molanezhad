@@ -1,0 +1,37 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/blog",
+      "destination": "https://blog-sand-six-28.vercel.app/"
+    },
+    {
+      "source": "/blog/",
+      "destination": "https://blog-sand-six-28.vercel.app/"
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "https://blog-sand-six-28.vercel.app/:path*"
+    },
+    {
+      "source": "/posts/:path*",
+      "destination": "https://blog-sand-six-28.vercel.app/posts/:path*"
+    },
+    {
+      "source": "/css/:path*",
+      "destination": "https://blog-sand-six-28.vercel.app/css/:path*"
+    },
+    {
+      "source": "/js/:path*",
+      "destination": "https://blog-sand-six-28.vercel.app/js/:path*"
+    },
+    {
+      "source": "/images/:path*",
+      "destination": "https://blog-sand-six-28.vercel.app/images/:path*"
+    },
+    {
+      "source": "/fonts/:path*",
+      "destination": "https://blog-sand-six-28.vercel.app/fonts/:path*"
+    }
+  ]
+}

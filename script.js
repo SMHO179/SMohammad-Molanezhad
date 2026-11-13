@@ -1,189 +1,292 @@
-const root = document.documentElement;
-const navbar = document.getElementById("navbar");
-const navToggle = document.getElementById("navToggle");
-const navMenu = document.getElementById("navMenu");
-const themeToggle = document.getElementById("themeToggle");
-const backTop = document.getElementById("backTop");
-const toast = document.getElementById("toast");
-const toastText = document.getElementById("toastText");
-const scrollProgress = document.getElementById("scrollProgress");
-const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+(() => {
+  'use strict';
 
-// Theme
-const syncThemeUI = () => {
-  const isDark = root.classList.contains("dark");
+  const root = document.documentElement;
+  const masthead = document.querySelector('.masthead');
+  const themeToggle = document.getElementById('themeToggle');
+  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+  const navToggle = document.getElementById('navToggle');
+  const navToggleLabel = document.getElementById('navToggleLabel');
+  const navPanel = document.getElementById('navPanel');
+  const toast = document.getElementById('toast');
+  const toastText = document.getElementById('toastText');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  if (themeColorMeta) {
-    themeColorMeta.setAttribute("content", isDark ? "#002b36" : "#fdf6e3");
-  }
+  /* ------------------------------------------------------------------------
+     Theme
+     ------------------------------------------------------------------------ */
+
+  const syncThemeUI = () => {
+    const isDark = root.dataset.theme !== 'light';
+    const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute('content', isDark ? '#11140F' : '#F7F3EA');
+    }
+
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-label', label);
+      themeToggle.setAttribute('title', label);
+    }
+  };
 
   if (themeToggle) {
-    themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
-    themeToggle.setAttribute("aria-pressed", String(isDark));
+    themeToggle.addEventListener('click', () => {
+      const next = root.dataset.theme === 'light' ? 'dark' : 'light';
+      root.dataset.theme = next;
+
+      try {
+        localStorage.setItem('theme', next);
+      } catch {
+        /* Storage can be unavailable; the theme still works for this session. */
+      }
+
+      syncThemeUI();
+    });
   }
-};
 
-if (themeToggle) {
-  themeToggle.addEventListener("click", () => {
-    const isDark = root.classList.toggle("dark");
+  syncThemeUI();
 
-    try {
-      localStorage.setItem("theme", isDark ? "dark" : "light");
-    } catch {
-      // Storage can be unavailable (private mode); theme still works for this session.
+  /* ------------------------------------------------------------------------
+     Mobile navigation
+     ------------------------------------------------------------------------ */
+
+  const desktopQuery = window.matchMedia('(min-width: 901px)');
+  let previouslyFocused = null;
+
+  const setMenu = (open, restoreFocus = false) => {
+    if (!navToggle || !navPanel) return;
+
+    navPanel.classList.toggle('is-open', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+
+    if (navToggleLabel) {
+      navToggleLabel.textContent = open ? 'Close' : 'Menu';
     }
 
-    syncThemeUI();
-  });
-}
+    document.body.classList.toggle('menu-open', open);
 
-syncThemeUI();
+    if (open) {
+      previouslyFocused = document.activeElement;
+      const firstLink = navPanel.querySelector('a, button');
+      if (firstLink) firstLink.focus({ preventScroll: true });
+    } else if (restoreFocus && previouslyFocused instanceof HTMLElement) {
+      previouslyFocused.focus({ preventScroll: true });
+    }
+  };
 
-// Mobile navigation
-const closeMenu = () => {
-  navMenu.classList.remove("open");
-  navToggle.classList.remove("open");
-  navToggle.setAttribute("aria-expanded", "false");
-};
+  if (navToggle && navPanel) {
+    navToggle.addEventListener('click', () => {
+      setMenu(!navPanel.classList.contains('is-open'));
+    });
 
-navToggle.addEventListener("click", () => {
-  const open = navMenu.classList.toggle("open");
-  navToggle.classList.toggle("open", open);
-  navToggle.setAttribute("aria-expanded", open);
-});
+    navPanel.addEventListener('click', event => {
+      if (event.target.closest('a')) setMenu(false);
+    });
 
-document.querySelectorAll(".nav-link").forEach(link => {
-  link.addEventListener("click", closeMenu);
-});
+    document.addEventListener('click', event => {
+      if (!navPanel.classList.contains('is-open')) return;
+      if (!masthead || !masthead.contains(event.target)) setMenu(false);
+    });
 
-document.addEventListener("click", event => {
-  if (!navMenu.contains(event.target) && !navToggle.contains(event.target)) {
-    closeMenu();
-  }
-});
-
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") {
-    closeMenu();
-  }
-});
-
-// Navbar + back to top + scroll progress + active link
-const spySections = ["about", "stack", "projects", "github", "contact"]
-  .map(id => document.getElementById(id));
-const navLinks = document.querySelectorAll(".nav-link");
-
-const onScroll = () => {
-  const y = window.scrollY;
-
-  navbar.classList.toggle("scrolled", y > 20);
-  backTop.classList.toggle("visible", y > 500);
-
-  const doc = document.documentElement;
-  const max = doc.scrollHeight - doc.clientHeight;
-  scrollProgress.style.width = (max > 0 ? (y / max) * 100 : 0) + "%";
-
-  const pos = y + 140;
-  let current = "";
-  spySections.forEach(section => {
-    if (section.offsetTop <= pos) current = section.id;
-  });
-
-  navLinks.forEach(link => {
-    link.classList.toggle("active", link.getAttribute("href") === "#" + current);
-  });
-};
-
-window.addEventListener("scroll", onScroll, { passive: true });
-onScroll();
-
-backTop.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
-// Reveal animations
-const revealItems = document.querySelectorAll(".reveal");
-
-if ("IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && navPanel.classList.contains('is-open')) {
+        setMenu(false, true);
       }
     });
-  }, {
-    threshold: .1,
-    rootMargin: "0px 0px -6% 0px"
-  });
 
-  revealItems.forEach(element => {
-    observer.observe(element);
-  });
-} else {
-  revealItems.forEach(element => {
-    element.classList.add("visible");
-  });
-}
+    const closeForDesktop = event => {
+      if (event.matches) setMenu(false);
+    };
 
-// Pointer spotlight on project cards (fine pointers only)
-const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (desktopQuery.addEventListener) {
+      desktopQuery.addEventListener('change', closeForDesktop);
+    } else {
+      desktopQuery.addListener(closeForDesktop);
+    }
+  }
 
-if (finePointer.matches && !reducedMotion.matches) {
-  document.querySelectorAll(".project-card").forEach(card => {
-    card.addEventListener("pointermove", event => {
-      const rect = card.getBoundingClientRect();
+  /* ------------------------------------------------------------------------
+     Scroll spy
+     ------------------------------------------------------------------------ */
 
-      card.style.setProperty("--mx", (event.clientX - rect.left) + "px");
-      card.style.setProperty("--my", (event.clientY - rect.top) + "px");
+  const sectionIds = ['about', 'stack', 'projects', 'github', 'contact'];
+  const sections = sectionIds
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+  const navLinks = document.querySelectorAll('.nav-link, .nav-panel__link');
+
+  const updateActiveLink = () => {
+    if (!sections.length) return;
+
+    const mastheadHeight = masthead ? masthead.getBoundingClientRect().height : 76;
+    const threshold = mastheadHeight + 72;
+    let current = '';
+
+    sections.forEach(section => {
+      if (section.getBoundingClientRect().top <= threshold) {
+        current = section.id;
+      }
     });
-  });
-}
 
-// Copy email
-const showToast = message => {
-  toastText.textContent = message;
-  toast.classList.add("show");
+    const atBottom =
+      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
 
-  setTimeout(() => {
-    toast.classList.remove("show");
-  }, 1800);
-};
+    if (atBottom) current = 'contact';
 
-// Shamsi date
-const shamsiDateElement = document.getElementById("shamsiDate");
-if (shamsiDateElement) {
-  const date = new Intl.DateTimeFormat('fa-IR', { calendar: 'persian', dateStyle: 'long' }).format(new Date());
-  shamsiDateElement.textContent = date;
-}
+    navLinks.forEach(link => {
+      if (current && link.getAttribute('href') === `#${current}`) {
+        link.setAttribute('aria-current', 'true');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+  };
 
-document.querySelectorAll("[data-copy]").forEach(button => {
-  button.addEventListener("click", async event => {
-    event.preventDefault();
-    event.stopPropagation();
+  let scrollTicking = false;
 
-    const text = button.dataset.copy;
+  const onScroll = () => {
+    if (scrollTicking) return;
+    scrollTicking = true;
 
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch {
-      const input = document.createElement("textarea");
-      input.value = text;
-      input.setAttribute("readonly", "");
-      input.style.position = "fixed";
-      input.style.opacity = "0";
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand("copy");
-      document.body.removeChild(input);
+    window.requestAnimationFrame(() => {
+      updateActiveLink();
+      scrollTicking = false;
+    });
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  updateActiveLink();
+
+  /* ------------------------------------------------------------------------
+     Reveal on scroll
+     ------------------------------------------------------------------------ */
+
+  const revealItems = document.querySelectorAll('.reveal');
+
+  if (!('IntersectionObserver' in window) || reduceMotion.matches) {
+    revealItems.forEach(item => item.classList.add('is-visible'));
+  } else {
+    const observer = new IntersectionObserver(
+      (entries, instance) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            instance.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: '0px 0px -6% 0px'
+      }
+    );
+
+    revealItems.forEach(item => observer.observe(item));
+  }
+
+  /* ------------------------------------------------------------------------
+     Toast + copy email
+     ------------------------------------------------------------------------ */
+
+  let toastTimer;
+
+  const showToast = message => {
+    if (!toast || !toastText) return;
+
+    toastText.textContent = message;
+    toast.classList.add('show');
+
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2200);
+  };
+
+  const copyText = async text => {
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        /* Fall through to the legacy copy path. */
+      }
     }
 
-    button.classList.add("copied");
-    showToast("Email copied to clipboard");
+    const field = document.createElement('textarea');
+    field.value = text;
+    field.setAttribute('readonly', '');
+    field.style.position = 'fixed';
+    field.style.inset = '0 auto auto -9999px';
+    field.style.opacity = '0';
+    document.body.appendChild(field);
+    field.select();
 
-    setTimeout(() => {
-      button.classList.remove("copied");
-    }, 1800);
+    let copied = false;
+
+    try {
+      copied = document.execCommand('copy');
+    } catch {
+      copied = false;
+    }
+
+    document.body.removeChild(field);
+    return copied;
+  };
+
+  document.querySelectorAll('[data-copy]').forEach(button => {
+    const label = button.querySelector('.copy-btn__label');
+    const defaultLabel = label ? label.textContent : '';
+    let resetTimer;
+
+    button.addEventListener('click', async () => {
+      const text = button.dataset.copy;
+      if (!text) return;
+
+      const copied = await copyText(text);
+
+      if (!copied) {
+        showToast('Could not copy email');
+        return;
+      }
+
+      button.classList.add('copied');
+      button.setAttribute('aria-label', 'Email address copied');
+
+      if (label) label.textContent = 'Copied';
+      showToast('Email copied to clipboard');
+
+      window.clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(() => {
+        button.classList.remove('copied');
+        button.setAttribute('aria-label', 'Copy email address');
+        if (label) label.textContent = defaultLabel;
+      }, 1800);
+    });
   });
-});
+
+  /* ------------------------------------------------------------------------
+     Dates and footer year
+     ------------------------------------------------------------------------ */
+
+  const shamsiDate = document.getElementById('shamsiDate');
+
+  if (shamsiDate) {
+    try {
+      shamsiDate.textContent = new Intl.DateTimeFormat('fa-IR', {
+        calendar: 'persian',
+        dateStyle: 'long'
+      }).format(new Date());
+    } catch {
+      shamsiDate.textContent = new Date().toLocaleDateString('fa-IR');
+    }
+  }
+
+  const year = document.getElementById('year');
+
+  if (year) {
+    year.textContent = String(new Date().getFullYear());
+  }
+})();

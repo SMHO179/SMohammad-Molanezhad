@@ -1,21 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <title>Mohammad Hesam — Backend Developer</title>
   <meta name="description"
     content="Mohammad Hesam — Backend Developer focused on Go, Python, Linux, DevOps and open source.">
-  <meta name="theme-color" content="#fdf6e3">
+  <meta name="author" content="Mohammad Hesam">
+  <meta name="theme-color" content="#11140F">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@400..600&display=swap"
-    rel="stylesheet">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mohammad Hesam — Backend Developer">
+  <meta property="og:description"
+    content="Backend developer working with Go and Python. Interested in Linux, automation, DevOps and open source.">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Mohammad Hesam — Backend Developer">
+  <meta name="twitter:description"
+    content="Backend developer working with Go and Python. Interested in Linux, automation, DevOps and open source.">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/AradVF.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const meta = document.querySelector('meta[name="theme-color"]');
+
+      try {
+        const stored = localStorage.getItem('theme');
+        root.dataset.theme = stored === 'light' || stored === 'dark' ? stored : 'dark';
+      } catch {
+        root.dataset.theme = 'dark';
+      }
+
+      if (meta) {
+        meta.setAttribute('content', root.dataset.theme === 'light' ? '#F7F3EA' : '#11140F');
+      }
+    })();
+  </script>
+
   <noscript>
     <style>
       .reveal {
@@ -24,444 +51,479 @@
       }
     </style>
   </noscript>
-  <script>
-    // Theme setup
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-      document.documentElement.classList.add("dark");
-    }
-  </script>
-
 </head>
 
 <body>
 
-  <div class="bg" aria-hidden="true">
-    <div class="grid"></div>
-  </div>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
-  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <header class="masthead" id="top">
+    <div class="container masthead__inner">
+      <a class="brand" href="#top" aria-label="Mohammad Hesam — home">
+        <span class="brand__mark" aria-hidden="true">MH</span>
+        <span class="brand__text">
+          <span class="brand__name">Mohammad Hesam</span>
+          <span class="brand__tag">Backend developer</span>
+        </span>
+      </a>
 
-  <div class="page">
+      <div class="masthead__tools">
+        <nav class="nav" aria-label="Primary">
+          <a class="nav-link" href="#about">About</a>
+          <a class="nav-link" href="#stack">Stack</a>
+          <a class="nav-link" href="#projects">Projects</a>
+          <a class="nav-link" href="#github">GitHub</a>
+          <a class="nav-link" href="#contact">Contact</a>
+        </nav>
 
-    <nav class="navbar" id="navbar">
-      <div class="nav-container">
-        <a href="#hero" class="nav-logo">
-          <span class="nav-logo-mark">~/</span>
-          <span>MH<span class="accent">.</span></span>
+        <a class="masthead__blog" href="https://s-mohammad-molanezhad.vercel.app/blog" aria-label="وبلاگ من"
+          dir="rtl" lang="fa">
+          <svg class="masthead__blog-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 4h13v16H6a2 2 0 0 1-2-2Z"></path>
+            <path d="M17 8h3v10a2 2 0 0 1-2 2h-1"></path>
+            <path d="M7 8h7M7 12h7M7 16h4"></path>
+          </svg>
+          <span class="masthead__blog-label">وبلاگ من</span>
         </a>
 
-        <button class="nav-toggle" id="navToggle" aria-label="Open navigation" aria-expanded="false">
-          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" aria-hidden="true">
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode"
+          title="Switch to light mode">
+          <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.2"></circle>
+            <path
+              d="M12 2.4v2.2M12 19.4v2.2M2.4 12h2.2M19.4 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6">
+            </path>
           </svg>
-          <svg class="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" aria-hidden="true">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
+          <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.4 14.2A8.5 8.5 0 0 1 9.8 3.6 8.5 8.5 0 1 0 20.4 14.2Z"></path>
           </svg>
         </button>
 
-        <ul class="nav-menu" id="navMenu">
-          <li><a class="nav-link" href="#about">About</a></li>
-          <li><a class="nav-link" href="#stack">Stack</a></li>
-          <li><a class="nav-link" href="#projects">Projects</a></li>
-          <li><a class="nav-link" href="#github">GitHub</a></li>
-          <li><a class="nav-link" href="#contact">Contact</a></li>
+        <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navPanel"
+          aria-label="Open menu">
+          <span class="nav-toggle__label" id="navToggleLabel">Menu</span>
+          <span class="nav-toggle__icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="nav-panel" id="navPanel">
+      <nav class="container nav-panel__inner" aria-label="Mobile">
+        <a class="nav-panel__link" href="#about"><span aria-hidden="true">01</span>About</a>
+        <a class="nav-panel__link" href="#stack"><span aria-hidden="true">02</span>Stack</a>
+        <a class="nav-panel__link" href="#projects"><span aria-hidden="true">03</span>Projects</a>
+        <a class="nav-panel__link" href="#github"><span aria-hidden="true">04</span>GitHub</a>
+        <a class="nav-panel__link" href="#contact"><span aria-hidden="true">05</span>Contact</a>
+        <a class="nav-panel__link nav-panel__link--blog"
+          href="https://s-mohammad-molanezhad.vercel.app/blog" lang="fa" dir="rtl">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 4h13v16H6a2 2 0 0 1-2-2Z"></path>
+            <path d="M17 8h3v10a2 2 0 0 1-2 2h-1"></path>
+            <path d="M7 8h7M7 12h7M7 16h4"></path>
+          </svg>
+          <span>وبلاگ من</span>
+        </a>
+      </nav>
+      <div class="container nav-panel__footer">
+        <a class="nav-panel__email" href="mailto:SMHO11@protonmail.com" dir="ltr">SMHO11@protonmail.com</a>
+        <p class="nav-panel__status"><span class="status-dot" aria-hidden="true"></span>Open to collaboration</p>
+      </div>
+    </div>
+  </header>
+
+  <header class="hero" aria-labelledby="hero-title">
+    <div class="container hero__grid">
+      <div class="hero__intro reveal">
+        <p class="eyebrow">Personal portfolio</p>
+        <h1 class="hero__title" id="hero-title">
+          Mohammad
+          <span class="hero__title-line">Hesam</span>
+        </h1>
+        <p class="hero__role">
+          Backend Developer
+          <span class="hero__role-sep" aria-hidden="true">/</span>
+          Go &amp; Python
+        </p>
+      </div>
+
+      <aside class="hero__aside reveal" aria-label="Profile and availability">
+        <figure class="portrait">
+          <img src="https://github.com/SMHO179.png" alt="Mohammad Hesam's GitHub avatar" width="240" height="240"
+            fetchpriority="high">
+          <figcaption>
+            <span>Mohammad Hesam</span>
+            <span>Backend developer</span>
+          </figcaption>
+        </figure>
+
+        <dl class="hero__meta">
+          <div>
+            <dt>Focus</dt>
+            <dd>Backend engineering</dd>
+          </div>
+          <div>
+            <dt>Stack</dt>
+            <dd>Go · Python · Linux</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd><span class="status-dot" aria-hidden="true"></span>Open to collaboration</dd>
+          </div>
+        </dl>
+      </aside>
+
+      <div class="hero__body reveal">
+        <p class="hero__lead">
+          I build backend services, CLI tools and self-hosted systems — focused on Linux,
+          automation, DevOps and open source.
+        </p>
+
+        <div class="actions">
+          <a class="action" href="#projects">
+            View selected work
+            <span class="action__arrow" aria-hidden="true">↓</span>
+          </a>
+          <a class="action action--quiet" href="https://github.com/SMHO179" target="_blank" rel="me noopener">
+            GitHub
+            <span class="action__arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="container section__grid">
+        <header class="section__head reveal">
+          <p class="eyebrow">01 / Profile</p>
+          <h2 class="section__title" id="about-title">About</h2>
+        </header>
+
+        <div class="section__body reveal">
+          <p class="about__lead">
+            Backend developer interested in building reliable, efficient and maintainable software.
+          </p>
+
+          <div class="about__columns">
+            <p>
+              I work mainly with Go and Python, while spending a lot of time in the Linux
+              ecosystem. I enjoy automation, containers, self-hosting and open-source software.
+            </p>
+            <p>
+              My focus is backend engineering: services, APIs, CLI tools and the systems around
+              them. I care about clear code, simple operations and software that stays easy to
+              reason about.
+            </p>
+          </div>
+
+          <dl class="facts">
+            <div class="fact">
+              <dt>Interests</dt>
+              <dd>Backend engineering, Linux, open source</dd>
+            </div>
+            <div class="fact">
+              <dt>Working with</dt>
+              <dd>Go, Python, Docker, Git, Neovim</dd>
+            </div>
+            <div class="fact">
+              <dt>Also</dt>
+              <dd>Automation, self-hosting, DevOps</dd>
+            </div>
+            <div class="fact">
+              <dt>Today</dt>
+              <dd><span id="shamsiDate" lang="fa" dir="rtl">…</span></dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="stack" aria-labelledby="stack-title">
+      <div class="container section__grid">
+        <header class="section__head reveal">
+          <p class="eyebrow">02 / Toolbox</p>
+          <h2 class="section__title" id="stack-title">Stack</h2>
+          <p class="section__meta">Tools I use regularly.</p>
+        </header>
+
+        <div class="section__body reveal">
+          <ol class="stack-list">
+            <li class="stack-item">
+              <span class="stack-item__num" aria-hidden="true">01</span>
+              <span class="stack-item__name">Go</span>
+              <span class="stack-item__note">Backend services and CLI tools.</span>
+            </li>
+            <li class="stack-item">
+              <span class="stack-item__num" aria-hidden="true">02</span>
+              <span class="stack-item__name">Python</span>
+              <span class="stack-item__note">Scripts, automation and services.</span>
+            </li>
+            <li class="stack-item">
+              <span class="stack-item__num" aria-hidden="true">03</span>
+              <span class="stack-item__name">Linux</span>
+              <span class="stack-item__note">Daily environment and self-hosting.</span>
+            </li>
+            <li class="stack-item">
+              <span class="stack-item__num" aria-hidden="true">04</span>
+              <span class="stack-item__name">Docker</span>
+              <span class="stack-item__note">Containers and deployment.</span>
+            </li>
+            <li class="stack-item">
+              <span class="stack-item__num" aria-hidden="true">05</span>
+              <span class="stack-item__name">Git</span>
+              <span class="stack-item__note">Version control and collaboration.</span>
+            </li>
+            <li class="stack-item">
+              <span class="stack-item__num" aria-hidden="true">06</span>
+              <span class="stack-item__name">Neovim</span>
+              <span class="stack-item__note">Editor of choice.</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="container section__grid">
+        <header class="section__head reveal">
+          <p class="eyebrow">03 / Selected work</p>
+          <h2 class="section__title" id="projects-title">Projects</h2>
+          <p class="section__meta">A few things I've built.</p>
+        </header>
+
+        <div class="section__body reveal">
+          <div class="project-list">
+
+            <article class="project">
+              <a class="project__link" href="https://github.com/SMHO179/Password-Manager" target="_blank"
+                rel="noopener">
+                <span class="project__num" aria-hidden="true">01</span>
+                <div class="project__body">
+                  <h3 class="project__title">
+                    Password Manager
+                    <span class="project__arrow" aria-hidden="true">↗</span>
+                  </h3>
+                  <p class="project__desc">
+                    Secure local password manager built with Python, SQLite and encryption.
+                  </p>
+                  <ul class="tags" aria-label="Technologies used">
+                    <li>Python</li>
+                    <li>SQLite</li>
+                    <li>Security</li>
+                  </ul>
+                </div>
+                <span class="project__action" aria-hidden="true">View repository</span>
+              </a>
+            </article>
+
+            <article class="project">
+              <a class="project__link" href="https://github.com/SMHO179/GoWeather" target="_blank" rel="noopener">
+                <span class="project__num" aria-hidden="true">02</span>
+                <div class="project__body">
+                  <h3 class="project__title">
+                    GoWeather
+                    <span class="project__arrow" aria-hidden="true">↗</span>
+                  </h3>
+                  <p class="project__desc">
+                    Lightweight weather CLI written in Go with API integration.
+                  </p>
+                  <ul class="tags" aria-label="Technologies used">
+                    <li>Go</li>
+                    <li>CLI</li>
+                    <li>API</li>
+                  </ul>
+                </div>
+                <span class="project__action" aria-hidden="true">View repository</span>
+              </a>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="github" aria-labelledby="github-title">
+      <div class="container section__grid">
+        <header class="section__head reveal">
+          <p class="eyebrow">04 / Open source</p>
+          <h2 class="section__title" id="github-title">GitHub</h2>
+        </header>
+
+        <div class="section__body reveal">
+          <p class="section__lead">Open source, experiments and code.</p>
+
+          <a class="github__link" href="https://github.com/SMHO179" target="_blank" rel="me noopener">
+            <span class="github__handle">github.com/SMHO179</span>
+            <span class="github__arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <p class="github__meta">
+            Find repositories, side projects and open-source work on GitHub.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="container section__grid">
+        <header class="section__head reveal">
+          <p class="eyebrow">05 / Contact</p>
+          <h2 class="section__title" id="contact-title">Let's connect.</h2>
+        </header>
+
+        <div class="section__body reveal">
+          <p class="section__lead">
+            Interested in projects, open source or backend development? Send a note.
+          </p>
+
+          <div class="contact-list">
+            <div class="contact-row">
+              <span class="contact-label">
+                <svg class="contact-label__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                  <path d="m4 7 8 6 8-6"></path>
+                </svg>
+                <span>Email</span>
+              </span>
+              <a class="contact-link" href="mailto:SMHO11@protonmail.com" dir="ltr">SMHO11@protonmail.com</a>
+              <button class="copy-btn" type="button" data-copy="SMHO11@protonmail.com" aria-label="Copy email address">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" aria-hidden="true">
+                  <rect x="9" y="9" width="12" height="12" rx="1"></rect>
+                  <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path>
+                </svg>
+                <span class="copy-btn__label">Copy</span>
+              </button>
+            </div>
+
+            <div class="contact-row">
+              <span class="contact-label">
+                <svg class="contact-label__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                </svg>
+                <span>GitHub</span>
+              </span>
+              <a class="contact-link" href="https://github.com/SMHO179" target="_blank" rel="me noopener" dir="ltr">
+                github.com/SMHO179
+                <span class="contact-link__arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+
+            <div class="contact-row">
+              <span class="contact-label">
+                <svg class="contact-label__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z" />
+                </svg>
+                <span>Mastodon</span>
+              </span>
+              <a class="contact-link" href="https://mastodon.social/@SMHO179" target="_blank"
+                rel="me noopener noreferrer" dir="ltr">
+                @SMHO179
+                <span class="contact-link__arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__top">
+      <div class="footer__brand">
+        <p class="footer__name">Mohammad Hesam</p>
+        <p class="footer__desc">
+          Backend developer working with Go and Python. Interested in Linux, automation,
+          DevOps and open source.
+        </p>
+        <ul class="footer__social" aria-label="Elsewhere">
           <li>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
-              <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            <a href="https://github.com/SMHO179" target="_blank" rel="me noopener" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
               </svg>
-              <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              <span>GitHub</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://mastodon.social/@SMHO179" target="_blank" rel="me noopener noreferrer"
+              aria-label="Mastodon">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z" />
               </svg>
-            </button>
+              <span>Mastodon</span>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:SMHO11@protonmail.com" aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                <path d="m4 7 8 6 8-6"></path>
+              </svg>
+              <span>Email</span>
+            </a>
           </li>
         </ul>
-
       </div>
-    </nav>
 
-    <header class="hero" id="hero">
-      <div class="hero-container">
+      <nav class="footer__col" aria-label="Footer navigation">
+        <p class="footer__label">Sections</p>
+        <ul class="footer__links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#stack">Stack</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#github">GitHub</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li>
+            <a href="https://s-mohammad-molanezhad.vercel.app/blog" lang="fa" dir="rtl">وبلاگ من</a>
+          </li>
+        </ul>
+      </nav>
 
-        <div class="hero-content reveal">
-          <span class="hero-badge"><span class="dot"></span>Open to collaboration</span>
-
-          <div class="hero-avatar">
-            <img src="https://github.com/SMHO179.png" alt="Mohammad Hesam GitHub avatar" width="72" height="72">
-          </div>
-
-          <p class="hero-greeting">Hello, I'm</p>
-
-          <h1 class="hero-name">
-            Mohammad Hesam<span class="accent">.</span>
-          </h1>
-
-          <p class="hero-title">
-            Backend Developer
-            <span class="accent">·</span>
-            Go & Python
-          </p>
-
-          <p class="hero-description">
-            I build backend services, CLI tools and self-hosted systems.
-            Focused on Linux, automation, DevOps and open source.
-          </p>
-
-          <div class="hero-buttons">
-            <a href="#projects" class="btn btn-primary">View Projects</a>
-            <a href="https://github.com/SMHO179" target="_blank" rel="noopener" class="btn btn-secondary">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path
-                  d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-.99-.02-1.94-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.69 1.25 3.35.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.95 10.95 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.78 1.05.78 2.12 0 1.53-.01 2.76-.01 3.14 0 .3.21.66.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z">
-                </path>
-              </svg>
-              GitHub
-            </a>
-          </div>
-        </div>
-
-        <div class="terminal-wrap reveal" aria-hidden="true">
-          <div class="terminal">
-            <div class="terminal-bar">
-              <span class="terminal-dots"><i></i><i></i><i></i></span>
-              <span class="terminal-title">mohammad@dev — zsh</span>
-            </div>
-
-            <pre class="terminal-code"><code><span class="t-prompt">$</span> whoami
-
-mohammad
-
-<span class="t-prompt">$</span> <span class="t-cmd">cat</span> <span class="t-flag">stack.txt</span>
-
-Go
-Python
-Linux
-Docker
-Git
-Neovim
-
-<span class="t-prompt">$</span> <span class="t-cmd">status</span>
-
-building...<span class="t-caret"></span></code></pre>
-          </div>
-        </div>
-
+      <div class="footer__col">
+        <p class="footer__label">Contact</p>
+        <a class="footer__email" href="mailto:SMHO11@protonmail.com" dir="ltr">SMHO11@protonmail.com</a>
+        <p class="footer__note">Open to collaboration.</p>
+        <a class="footer__support" href="https://daramet.com/SMHM2011" target="_blank" rel="noopener noreferrer"
+          dir="rtl" lang="fa">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path
+              d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z">
+            </path>
+          </svg>
+          <span>حمایت مالی</span>
+        </a>
       </div>
-    </header>
+    </div>
 
-    <main>
+    <div class="container footer__base">
+      <p>© <span id="year">2026</span> Mohammad Hesam · Built with care</p>
+      <a class="footer__top-link" href="#top">
+        Back to top
+        <span aria-hidden="true">↑</span>
+      </a>
+    </div>
+  </footer>
 
-      <section class="section" id="about">
-        <div class="container">
-          <div class="section-head reveal">
-            <p class="section-eyebrow">01 / profile</p>
-            <h2 class="section-title">About</h2>
-          </div>
-
-          <div class="about-grid">
-            <div class="about-text reveal">
-              <p>
-                Backend developer interested in building reliable,
-                efficient and maintainable software.
-              </p>
-
-              <p>
-                I work mainly with <strong>Go</strong> and <strong>Python</strong>,
-                while spending a lot of time in the <strong>Linux</strong> ecosystem.
-                I enjoy automation, containers, self-hosting and open-source software.
-              </p>
-
-              <div class="about-highlights">
-                <span class="chip"><span class="dot"></span>Go</span>
-                <span class="chip"><span class="dot"></span>Python</span>
-                <span class="chip"><span class="dot"></span>Linux</span>
-                <span class="chip"><span class="dot"></span>Automation</span>
-                <span class="chip"><span class="dot"></span>Self-hosting</span>
-                <span class="chip"><span class="dot"></span>Open source</span>
-              </div>
-            </div>
-
-            <div class="stats reveal">
-              <div class="stat-card">
-                <span class="stat-icon">{ }</span>
-                <div>
-                  <span class="stat-label">Languages</span>
-                  <span class="stat-value">Go · Python</span>
-                </div>
-              </div>
-
-              <div class="stat-card">
-                <span class="stat-icon">$_</span>
-                <div>
-                  <span class="stat-label">Environment</span>
-                  <span class="stat-value">Linux</span>
-                </div>
-              </div>
-
-              <div class="stat-card">
-                <span class="stat-icon">→</span>
-                <div>
-                  <span class="stat-label">Focus</span>
-                  <span class="stat-value">Backend · DevOps</span>
-                </div>
-              </div>
-              <div class="stat-card">
-                <span class="stat-icon">📅</span>
-                <div>
-                  <span class="stat-label">Today</span>
-                  <span class="stat-value" id="shamsiDate">...</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section-alt" id="stack">
-        <div class="container">
-          <div class="section-head reveal">
-            <p class="section-eyebrow">02 / toolbox</p>
-            <h2 class="section-title">Tech Stack</h2>
-            <p class="section-subtitle">Tools I use regularly.</p>
-          </div>
-
-          <div class="grid tech-grid">
-            <div class="tech-card reveal">
-              <div class="tech-icon">Go</div><span class="tech-name">Go</span>
-            </div>
-            <div class="tech-card reveal">
-              <div class="tech-icon">Py</div><span class="tech-name">Python</span>
-            </div>
-            <div class="tech-card reveal">
-              <div class="tech-icon">◈</div><span class="tech-name">Docker</span>
-            </div>
-            <div class="tech-card reveal">
-              <div class="tech-icon">Git</div><span class="tech-name">Git</span>
-            </div>
-            <div class="tech-card reveal">
-              <div class="tech-icon">$_</div><span class="tech-name">Linux</span>
-            </div>
-            <div class="tech-card reveal">
-              <div class="tech-icon">NV</div><span class="tech-name">Neovim</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="projects">
-        <div class="container">
-          <div class="section-head reveal">
-            <p class="section-eyebrow">03 / work</p>
-            <h2 class="section-title">Projects</h2>
-            <p class="section-subtitle">A few things I've built.</p>
-          </div>
-
-          <div class="grid projects-grid">
-
-            <article class="project-card reveal">
-              <div class="project-top">
-                <span class="project-index"><span class="accent">0</span>1</span>
-                <a class="project-link" href="https://github.com/SMHO179/Password-Manager" target="_blank" rel="noopener"
-                  aria-label="Open Password Manager repository">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" aria-hidden="true">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                    <polyline points="15 3 21 3 21 9"></polyline>
-                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                  </svg>
-                </a>
-              </div>
-
-              <h3 class="project-title">Password Manager</h3>
-
-              <p class="project-description">
-                Secure local password manager built with Python, SQLite and encryption.
-              </p>
-
-              <div class="tags">
-                <span class="tag">Python</span>
-                <span class="tag">SQLite</span>
-                <span class="tag">Security</span>
-              </div>
-
-              <a class="btn btn-secondary" href="https://github.com/SMHO179/Password-Manager" target="_blank"
-                rel="noopener">
-                View Repository
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round" aria-hidden="true">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                  <polyline points="15 3 21 3 21 9"></polyline>
-                  <line x1="10" y1="14" x2="21" y2="3"></line>
-                </svg>
-              </a>
-            </article>
-
-            <article class="project-card reveal">
-              <div class="project-top">
-                <span class="project-index"><span class="accent">0</span>2</span>
-                <a class="project-link" href="https://github.com/SMHO179/GoWeather" target="_blank" rel="noopener"
-                  aria-label="Open GoWeather repository">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" aria-hidden="true">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                    <polyline points="15 3 21 3 21 9"></polyline>
-                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                  </svg>
-                </a>
-              </div>
-
-              <h3 class="project-title">GoWeather</h3>
-
-              <p class="project-description">
-                Lightweight weather CLI written in Go with API integration.
-              </p>
-
-              <div class="tags">
-                <span class="tag">Go</span>
-                <span class="tag">CLI</span>
-                <span class="tag">API</span>
-              </div>
-
-              <a class="btn btn-secondary" href="https://github.com/SMHO179/GoWeather" target="_blank" rel="noopener">
-                View Repository
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round" aria-hidden="true">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                  <polyline points="15 3 21 3 21 9"></polyline>
-                  <line x1="10" y1="14" x2="21" y2="3"></line>
-                </svg>
-              </a>
-            </article>
-
-          </div>
-        </div>
-      </section>
-
-      <section class="section section-alt" id="github">
-        <div class="container">
-          <div class="section-head reveal">
-            <p class="section-eyebrow">04 / open source</p>
-            <h2 class="section-title">GitHub</h2>
-            <p class="section-subtitle">Open source, experiments and code.</p>
-          </div>
-
-          <div class="github-box reveal">
-            <img
-              src="https://github-readme-stats.shion.dev/api/top-langs/?username=SMHO179&theme=dark&layout=compact&hide_border=true&hide=Jupyter%20Notebook"
-              alt="Most used programming languages on GitHub" loading="lazy" width="495" height="195">
-
-            <a class="btn btn-primary" href="https://github.com/SMHO179" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path
-                  d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-.99-.02-1.94-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.69 1.25 3.35.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.95 10.95 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.78 1.05.78 2.12 0 1.53-.01 2.76-.01 3.14 0 .3.21.66.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z">
-                </path>
-              </svg>
-              View GitHub Profile
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="contact">
-        <div class="container">
-          <div class="contact">
-            <div class="section-head reveal">
-              <p class="section-eyebrow">05 / reach out</p>
-              <h2 class="section-title">Let's connect.</h2>
-            </div>
-
-            <p class="contact-text reveal">
-              Interested in projects, open source or backend development?
-            </p>
-
-            <div class="contact-grid">
-
-              <a class="contact-card reveal" href="mailto:SMHO11@protonmail.com">
-                <span class="contact-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" aria-hidden="true">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                    <polyline points="22,6 12,13 2,6"></polyline>
-                  </svg>
-                </span>
-                <span class="contact-body">
-                  <span class="contact-label">Email</span>
-                  <span class="contact-address">SMHO11@protonmail.com</span>
-                </span>
-
-                <button class="copy-btn" type="button" data-copy="SMHO11@protonmail.com" aria-label="Copy email">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" aria-hidden="true">
-                    <rect x="9" y="9" width="13" height="13" rx="2"></rect>
-                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                  </svg>
-                </button>
-              </a>
-
-              <a class="contact-card reveal" href="https://github.com/SMHO179" target="_blank" rel="noopener">
-                <span class="contact-icon">
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path
-                      d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-.99-.02-1.94-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.69 1.25 3.35.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.95 10.95 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.78 1.05.78 2.12 0 1.53-.01 2.76-.01 3.14 0 .3.21.66.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z">
-                    </path>
-                  </svg>
-                </span>
-                <span class="contact-body">
-                  <span class="contact-label">GitHub</span>
-                  <span class="contact-address">github.com/SMHO179</span>
-                </span>
-              </a>
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <footer class="footer">
-      <div class="container footer-container">
-        <p>Built with care by <strong>Mohammad Hesam</strong> · 2026</p>
-
-        <div class="footer-links">
-          <a href="https://github.com/SMHO179" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path
-                d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-.99-.02-1.94-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.69 1.25 3.35.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.95 10.95 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.78 1.05.78 2.12 0 1.53-.01 2.76-.01 3.14 0 .3.21.66.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z">
-              </path>
-            </svg>
-            GitHub
-          </a>
-          <a href="mailto:SMHO11@protonmail.com">Email</a>
-        </div>
-      </div>
-    </footer>
-
-  </div>
-
-  <button class="back-top" id="backTop" aria-label="Back to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-      stroke-linejoin="round" aria-hidden="true">
-      <polyline points="18 15 12 9 6 15"></polyline>
-    </svg>
-  </button>
-
-  <div class="toast" id="toast" role="status">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
       stroke-linejoin="round" aria-hidden="true">
       <polyline points="20 6 9 17 4 12"></polyline>
     </svg>
